@@ -1,0 +1,25 @@
+{
+  "name": "sharejs-wrapper",
+  "description": "A wrapper around ShareJS for easier iOS development",
+  "version": "1.0.0",
+  "author": "Jonathan Clem <jotclem@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/usecanvas/share-wrapper/issues"
+  },
+  "homepage": "https://github.com/usecanvas/share-wrapper#readme",
+  "keywords": [
+    "sharejs"
+  ],
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usecanvas/sharejs-wrapper.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "share": "0.7.40"
+  }
+}
