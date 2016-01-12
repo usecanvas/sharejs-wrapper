@@ -1,0 +1,9 @@
+{
+  "extends": "canvas",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-unused-vars": [2, {"argsIgnorePattern": "^_"}]
+  }
+}

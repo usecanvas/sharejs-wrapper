@@ -1,0 +1,12 @@
+{
+  "opts": {
+    "readme": "README.md",
+    "package": "package.json"
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "default": {
+      "includeDate": false
+    }
+  }
+}
