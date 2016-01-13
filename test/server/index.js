@@ -10,8 +10,6 @@ var ShareJS     = require('share');
 var WS          = require('ws');
 var serveStatic = require('serve-static');
 
-console.log(Connect);
-
 var app = new Connect();
 app.use(serveStatic(Path.join(__dirname, './public')));
 app.use(serveStatic(Path.join(__dirname, '../../dist')));
