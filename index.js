@@ -1,10 +1,11 @@
 import EventEmitter from 'eventemitter3';
 import ShareJS      from 'share/lib/client';
 
-const ABNORMAL     = 1006;
-const NORMAL       = 1000;
-const NOT_FOUND    = 4040;
-const UNAUTHORIZED = 4010;
+const ABNORMAL      = 1006;
+const NORMAL        = 1000;
+const NOT_FOUND     = 4040;
+const UNAUTHORIZED  = 4010;
+const LOCAL_TIMEOUT = 4011;
 
 /**
  * @class ShareJSWrapper
@@ -37,16 +38,12 @@ export default class ShareJSWrapper {
     this.connection = this.getShareJSConnection();
     this.bindConnectionEvents();
 
-    this.pingInterval = setInterval(function sendPing() {
-      if (this.socket.readyState === this.socket.OPEN) {
-        this.socket.send('ping');
-      }
-    }.bind(this), 3000);
-
     this.document = this.connection.get(orgID, canvasID);
     this.document.subscribe();
 
     this.document.whenReady(_ => {
+      this.debug('whenReady');
+
       if (!this.document.type) {
         this.document.create('text');
       }
@@ -65,6 +62,16 @@ export default class ShareJSWrapper {
   }
 
   /**
+   * Tell the wrapper client to close the ShareJS connection and socket.
+   *
+   * @example
+   * share.disconnect();
+   */
+  disconnect() {
+    this.socket.close();
+  }
+
+  /**
    * Send an insert operation from this client to the server.
    *
    * @example
@@ -74,6 +81,7 @@ export default class ShareJSWrapper {
    * @param {string} text The text to be inserted
    */
   insert(offset, text) {
+    this.debug('insert', ...arguments);
     this.context.insert(offset, text);
     this.content = this.document.snapshot;
   }
@@ -124,6 +132,7 @@ export default class ShareJSWrapper {
    * @param {number} length The number of characters to remove
    */
   remove(start, length) {
+    this.debug('remove', ...arguments);
     this.context.remove(start, length);
     this.content = this.document.snapshot;
   }
@@ -198,6 +207,7 @@ export default class ShareJSWrapper {
   getShareJSConnection() {
     const connection = new ShareJS.Connection(this.socket);
     this.setupSocketAuthentication();
+    this.setupSocketPing();
     this.setupSocketOnMessage();
     return connection;
   }
@@ -208,7 +218,9 @@ export default class ShareJSWrapper {
    * @private
    */
   onConnectionConnected() {
-    this.connectionAttempts = 1;
+    this.debug('connectionConnected');
+    this.eventEmitter.emit('connected');
+    this.reconnectAttempts = 0;
     this.connected = true;
   }
 
@@ -219,34 +231,39 @@ export default class ShareJSWrapper {
    * @param {Event} event A disconnection event
    */
   onConnectionDisonnected(event) {
+    this.debug('connectionDisconnected', ...arguments, event.code);
     this.connected = false;
 
-    let error, reason;
+    clearTimeout(this.pongWait);
+
+    let error;
     switch (event.code) {
       case ABNORMAL:
-        this.reconnect();
+      case LOCAL_TIMEOUT:
+        if (this.reconnectAttempts > 5) {
+          const reason = event.code === ABNORMAL ?
+            'abnormal' : 'no_pong';
+          error = new Error(reason);
+        } else {
+          this.reconnect();
+        }
+
         break;
       case UNAUTHORIZED:
-        reason = 'forbidden';
-        error = new Error(reason);
-        error.status = 403;
+        error = new Error('forbidden');
         break;
       case NOT_FOUND:
-        reason = 'not_found';
-        error = new Error(reason);
-        error.status = 404;
+        error = new Error('not_found');
         break;
       default:
-        if (event.code === NORMAL) {
-          reason = 'normal';
-        } else {
-          reason = 'unexpected';
-          error = new Error(reason);
-          error.status = 500;
+        if (event.code !== NORMAL) {
+          error = new Error('unexpected');
         }
     }
 
-    this.eventEmitter.emit('disconnected', error, reason);
+    if (error) {
+      this.eventEmitter.emit('disconnected', error);
+    }
   }
 
   /**
@@ -266,6 +283,69 @@ export default class ShareJSWrapper {
   }
 
   /**
+   * Handle a pong by waiting a few seconds and sending another ping.
+   *
+   * @private
+   */
+  onSocketPong() {
+    this.receivedPong = true;
+
+    setTimeout(_ => {
+      this.sendPing();
+    }, 5000);
+  }
+
+  /**
+   * Attempt to reconnect to the server, using a backoff algorithm.
+   *
+   * @private
+   */
+  reconnect() {
+    this.reconnectAttempts = this.reconnectAttempts || 0;
+
+    const attempts = this.reconnectAttempts;
+    const time     = getInterval();
+
+    setTimeout(_ => {
+      this.reconnectAttempts = this.reconnectAttempts + 1;
+      this.connect();
+    }, time);
+
+    function getInterval() {
+      let max = (Math.pow(2, attempts) - 1) * 1000;
+
+      if (max > 5 * 1000) {
+        max = 5 * 1000;
+      }
+
+      return Math.random() * max;
+    }
+  }
+
+  /**
+   * Send a ping over the WebSocket, and await pong.
+   *
+   * @private
+   */
+  sendPing() {
+    if (this.config.noPing) {
+      return;
+    }
+
+    const { socket } = this;
+
+    if (socket.readyState === socket.OPEN) {
+      this.receivedPong = false;
+      socket.send('ping');
+      this.pongWait = setTimeout(_ => {
+        if (!this.receivedPong) {
+          this.socket.close(LOCAL_TIMEOUT);
+        }
+      }, 1000);
+    }
+  }
+
+  /**
    * Set up the authentication step.
    *
    * ShareJS immediately sets `socket.onopen` so we override that and ensure
@@ -278,11 +358,12 @@ export default class ShareJSWrapper {
     const { accessToken } = this.config;
     const { socket      } = this;
 
-    socket._onopen = socket.onopen; // Override ShareJS's socket.onopen
+    const _onopen = bind(socket, 'onopen');
+    socket.onopen = _ => {
+      this.debug('sending auth token');
 
-    socket.onopen = function onSocketOpen() {
       socket.send(`auth-token:${accessToken}`);
-      socket._onopen(...arguments); // Call ShareJS's socket.onopen
+      _onopen(...arguments);
     };
   }
 
@@ -297,14 +378,41 @@ export default class ShareJSWrapper {
   setupSocketOnMessage() {
     const { socket } = this;
 
-    socket._onmessage = socket.onmessage;
-    socket.onmessage = function onSocketMessage(message) {
-      if (message.data === 'pong') {
+    const _onmessage = bind(socket, 'onmessage');
+    socket.onmessage = function onMessage({ data }) {
+      if (data === 'pong') {
+        this.onSocketPong();
         return;
       }
 
-      return socket._onmessage(message);
-    };
+      return _onmessage(...arguments);
+    }.bind(this);
+  }
+
+  /**
+   * Set up a ping/pong cycle for this socket.
+   *
+   * @private
+   */
+  setupSocketPing() {
+    const { socket } = this;
+
+    const _onopen = bind(socket, 'onopen');
+    socket.onopen = function onOpen() {
+      this.sendPing();
+      _onopen(...arguments);
+    }.bind(this);
+  }
+
+  /**
+   * Conditionally log a debug statement.
+   *
+   * @private
+   */
+  debug() {
+    if (this.config.debug) {
+      console.log(...arguments);
+    }
   }
 }
 

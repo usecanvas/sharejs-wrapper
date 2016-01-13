@@ -24,7 +24,7 @@ wsServer.on('connection', function onConnection(client) {
   var stream = new Duplex({ objectMode: true });
   stream._write = function stream__write(chunk, encoding, callback) {
     console.log('server -> client\n ', chunk, '\n');
-    client.send(JSON.stringify(chunk));
+    clientSend(JSON.stringify(chunk));
     callback();
   };
 
@@ -37,7 +37,7 @@ wsServer.on('connection', function onConnection(client) {
     console.log('client -> server\n ', msg, '\n');
 
     if (msg === 'ping') {
-      client.send('pong');
+      clientSend('pong');
       console.log('server -> client\n', 'pong\n');
       return;
     }
@@ -65,6 +65,12 @@ wsServer.on('connection', function onConnection(client) {
   });
 
   shareJS.listen(stream);
+
+  function clientSend(message) {
+    if (client.readyState === client.OPEN) {
+      client.send(message);
+    }
+  }
 });
 
 var port = ARGV.p || 3000;

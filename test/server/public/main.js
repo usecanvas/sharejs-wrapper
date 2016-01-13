@@ -9,38 +9,67 @@
     canvasID: '1',
     realtimeURL: 'ws://localhost:3000',
     orgID: '1',
+    debug: true,
   });
 
+  var shareJSB;
   shareJSA.connect(function onConnected() {
     areaA.value = shareJSA.content;
+
+    // So that we don't try to create the document twice, we wait until
+    // shareJSA has connected.
+    shareJSB = new ShareJSWrapper({
+      accessToken: 'abc123',
+      canvasID: '1',
+      realtimeURL: 'ws://localhost:3000',
+      orgID: '1',
+      noPing: true,
+    });
+
+    // Set the value of the listening text box on connect
+    shareJSB.connect(function onConnected() {
+      areaB.value = shareJSB.content;
+    });
+
+    // Set the value of the listening text box on remote operations
+    shareJSB.on('insert', _op => areaB.value = shareJSB.content);
+    shareJSB.on('remove', _op => areaB.value = shareJSB.content);
+  });
+
+  shareJSA.on('connected', function onConnected() {
     areaA.removeAttribute('disabled');
+    reconnect.setAttribute('disabled', true);
+    disconnect.removeAttribute('disabled');
+  });
+
+  shareJSA.on('disconnected', function onDisconnected(_err) {
+    areaA.setAttribute('disabled', true);
+    disconnect.setAttribute('disabled', true);
+    reconnect.removeAttribute('disabled');
   });
 
   // Create the connection that will just mirror content in this example
-  var shareJSB = new ShareJSWrapper({
-    accessToken: 'abc123',
-    canvasID: '1',
-    realtimeURL: 'ws://localhost:3000',
-    orgID: '1',
-  });
-
-  // Set the value of the listening text box on connect
-  shareJSB.connect(function onConnected() {
-    areaB.value = shareJSB.content;
-  });
-
-  // Set the value of the listening text box on remote operations
-  shareJSB.on('insert', _op => areaB.value = shareJSB.content);
-  shareJSB.on('remove', _op => areaB.value = shareJSB.content);
-
-  var areaA = document.querySelector('#area-a');
-  var areaB = document.querySelector('#area-b');
+  var areaA      = document.querySelector('#area-a');
+  var areaB      = document.querySelector('#area-b');
+  var disconnect = document.querySelector('#disconnect');
+  var reconnect  = document.querySelector('#reconnect');
 
   // Listen for input events on the editable textarea and generate ops
   areaA.addEventListener('input', function onChange(_event) {
     var newText = areaA.value;
     var oldText = shareJSA.content;
     applyChange(shareJSA, oldText, newText);
+  });
+
+  disconnect.addEventListener('click', function onClick() {
+    shareJSA.disconnect();
+    areaA.setAttribute('disabled', true);
+    disconnect.setAttribute('disabled', true);
+    reconnect.removeAttribute('disabled');
+  });
+
+  reconnect.addEventListener('click', function onClick() {
+    shareJSA.connect();
   });
 
   /*

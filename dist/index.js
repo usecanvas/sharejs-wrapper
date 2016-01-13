@@ -23,6 +23,7 @@ var ABNORMAL = 1006;
 var NORMAL = 1000;
 var NOT_FOUND = 4040;
 var UNAUTHORIZED = 4010;
+var LOCAL_TIMEOUT = 4011;
 
 /**
  * @class ShareJSWrapper
@@ -66,16 +67,12 @@ var ShareJSWrapper = function () {
       this.connection = this.getShareJSConnection();
       this.bindConnectionEvents();
 
-      this.pingInterval = setInterval(function sendPing() {
-        if (this.socket.readyState === this.socket.OPEN) {
-          this.socket.send('ping');
-        }
-      }.bind(this), 3000);
-
       this.document = this.connection.get(orgID, canvasID);
       this.document.subscribe();
 
       this.document.whenReady(function (_) {
+        _this.debug('whenReady');
+
         if (!_this.document.type) {
           _this.document.create('text');
         }
@@ -94,6 +91,19 @@ var ShareJSWrapper = function () {
     }
 
     /**
+     * Tell the wrapper client to close the ShareJS connection and socket.
+     *
+     * @example
+     * share.disconnect();
+     */
+
+  }, {
+    key: 'disconnect',
+    value: function disconnect() {
+      this.socket.close();
+    }
+
+    /**
      * Send an insert operation from this client to the server.
      *
      * @example
@@ -106,6 +116,7 @@ var ShareJSWrapper = function () {
   }, {
     key: 'insert',
     value: function insert(offset, text) {
+      this.debug.apply(this, ['insert'].concat(Array.prototype.slice.call(arguments)));
       this.context.insert(offset, text);
       this.content = this.document.snapshot;
     }
@@ -165,6 +176,7 @@ var ShareJSWrapper = function () {
   }, {
     key: 'remove',
     value: function remove(start, length) {
+      this.debug.apply(this, ['remove'].concat(Array.prototype.slice.call(arguments)));
       this.context.remove(start, length);
       this.content = this.document.snapshot;
     }
@@ -260,6 +272,7 @@ var ShareJSWrapper = function () {
     value: function getShareJSConnection() {
       var connection = new _client2.default.Connection(this.socket);
       this.setupSocketAuthentication();
+      this.setupSocketPing();
       this.setupSocketOnMessage();
       return connection;
     }
@@ -273,7 +286,9 @@ var ShareJSWrapper = function () {
   }, {
     key: 'onConnectionConnected',
     value: function onConnectionConnected() {
-      this.connectionAttempts = 1;
+      this.debug('connectionConnected');
+      this.eventEmitter.emit('connected');
+      this.reconnectAttempts = 0;
       this.connected = true;
     }
 
@@ -287,35 +302,38 @@ var ShareJSWrapper = function () {
   }, {
     key: 'onConnectionDisonnected',
     value: function onConnectionDisonnected(event) {
+      this.debug.apply(this, ['connectionDisconnected'].concat(Array.prototype.slice.call(arguments), [event.code]));
       this.connected = false;
 
-      var error = undefined,
-          reason = undefined;
+      clearTimeout(this.pongWait);
+
+      var error = undefined;
       switch (event.code) {
         case ABNORMAL:
-          this.reconnect();
+        case LOCAL_TIMEOUT:
+          if (this.reconnectAttempts > 5) {
+            var reason = event.code === ABNORMAL ? 'abnormal' : 'no_pong';
+            error = new Error(reason);
+          } else {
+            this.reconnect();
+          }
+
           break;
         case UNAUTHORIZED:
-          reason = 'forbidden';
-          error = new Error(reason);
-          error.status = 403;
+          error = new Error('forbidden');
           break;
         case NOT_FOUND:
-          reason = 'not_found';
-          error = new Error(reason);
-          error.status = 404;
+          error = new Error('not_found');
           break;
         default:
-          if (event.code === NORMAL) {
-            reason = 'normal';
-          } else {
-            reason = 'unexpected';
-            error = new Error(reason);
-            error.status = 500;
+          if (event.code !== NORMAL) {
+            error = new Error('unexpected');
           }
       }
 
-      this.eventEmitter.emit('disconnected', error, reason);
+      if (error) {
+        this.eventEmitter.emit('disconnected', error);
+      }
     }
 
     /**
@@ -342,6 +360,84 @@ var ShareJSWrapper = function () {
     }
 
     /**
+     * Handle a pong by waiting a few seconds and sending another ping.
+     *
+     * @private
+     */
+
+  }, {
+    key: 'onSocketPong',
+    value: function onSocketPong() {
+      var _this3 = this;
+
+      this.receivedPong = true;
+
+      setTimeout(function (_) {
+        _this3.sendPing();
+      }, 5000);
+    }
+
+    /**
+     * Attempt to reconnect to the server, using a backoff algorithm.
+     *
+     * @private
+     */
+
+  }, {
+    key: 'reconnect',
+    value: function reconnect() {
+      var _this4 = this;
+
+      this.reconnectAttempts = this.reconnectAttempts || 0;
+
+      var attempts = this.reconnectAttempts;
+      var time = getInterval();
+
+      setTimeout(function (_) {
+        _this4.reconnectAttempts = _this4.reconnectAttempts + 1;
+        _this4.connect();
+      }, time);
+
+      function getInterval() {
+        var max = (Math.pow(2, attempts) - 1) * 1000;
+
+        if (max > 5 * 1000) {
+          max = 5 * 1000;
+        }
+
+        return Math.random() * max;
+      }
+    }
+
+    /**
+     * Send a ping over the WebSocket, and await pong.
+     *
+     * @private
+     */
+
+  }, {
+    key: 'sendPing',
+    value: function sendPing() {
+      var _this5 = this;
+
+      if (this.config.noPing) {
+        return;
+      }
+
+      var socket = this.socket;
+
+      if (socket.readyState === socket.OPEN) {
+        this.receivedPong = false;
+        socket.send('ping');
+        this.pongWait = setTimeout(function (_) {
+          if (!_this5.receivedPong) {
+            _this5.socket.close(LOCAL_TIMEOUT);
+          }
+        }, 1000);
+      }
+    }
+
+    /**
      * Set up the authentication step.
      *
      * ShareJS immediately sets `socket.onopen` so we override that and ensure
@@ -354,14 +450,18 @@ var ShareJSWrapper = function () {
   }, {
     key: 'setupSocketAuthentication',
     value: function setupSocketAuthentication() {
+      var _this6 = this,
+          _arguments = arguments;
+
       var accessToken = this.config.accessToken;
       var socket = this.socket;
 
-      socket._onopen = socket.onopen; // Override ShareJS's socket.onopen
+      var _onopen = bind(socket, 'onopen');
+      socket.onopen = function (_) {
+        _this6.debug('sending auth token');
 
-      socket.onopen = function onSocketOpen() {
         socket.send('auth-token:' + accessToken);
-        socket._onopen.apply(socket, arguments); // Call ShareJS's socket.onopen
+        _onopen.apply(undefined, _arguments);
       };
     }
 
@@ -379,14 +479,51 @@ var ShareJSWrapper = function () {
     value: function setupSocketOnMessage() {
       var socket = this.socket;
 
-      socket._onmessage = socket.onmessage;
-      socket.onmessage = function onSocketMessage(message) {
-        if (message.data === 'pong') {
+      var _onmessage = bind(socket, 'onmessage');
+      socket.onmessage = function onMessage(_ref) {
+        var data = _ref.data;
+
+        if (data === 'pong') {
+          this.onSocketPong();
           return;
         }
 
-        return socket._onmessage(message);
-      };
+        return _onmessage.apply(undefined, arguments);
+      }.bind(this);
+    }
+
+    /**
+     * Set up a ping/pong cycle for this socket.
+     *
+     * @private
+     */
+
+  }, {
+    key: 'setupSocketPing',
+    value: function setupSocketPing() {
+      var socket = this.socket;
+
+      var _onopen = bind(socket, 'onopen');
+      socket.onopen = function onOpen() {
+        this.sendPing();
+        _onopen.apply(undefined, arguments);
+      }.bind(this);
+    }
+
+    /**
+     * Conditionally log a debug statement.
+     *
+     * @private
+     */
+
+  }, {
+    key: 'debug',
+    value: function debug() {
+      if (this.config.debug) {
+        var _console;
+
+        (_console = console).log.apply(_console, arguments);
+      }
     }
   }]);
 
