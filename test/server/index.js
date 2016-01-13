@@ -36,6 +36,12 @@ wsServer.on('connection', function onConnection(client) {
   client.on('message', function onMessage(msg) {
     console.log('client -> server\n ', msg, '\n');
 
+    if (msg === 'ping') {
+      client.send('pong');
+      console.log('server -> client\n', 'pong\n');
+      return;
+    }
+
     if (/^auth-token/.test(msg)) {
       return;
     }

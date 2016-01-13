@@ -66,6 +66,12 @@ var ShareJSWrapper = function () {
       this.connection = this.getShareJSConnection();
       this.bindConnectionEvents();
 
+      this.pingInterval = setInterval(function sendPing() {
+        if (this.socket.readyState === this.socket.OPEN) {
+          this.socket.send('ping');
+        }
+      }.bind(this), 3000);
+
       this.document = this.connection.get(orgID, canvasID);
       this.document.subscribe();
 
@@ -254,6 +260,7 @@ var ShareJSWrapper = function () {
     value: function getShareJSConnection() {
       var connection = new _client2.default.Connection(this.socket);
       this.setupSocketAuthentication();
+      this.setupSocketOnMessage();
       return connection;
     }
 
@@ -355,6 +362,30 @@ var ShareJSWrapper = function () {
       socket.onopen = function onSocketOpen() {
         socket.send('auth-token:' + accessToken);
         socket._onopen.apply(socket, arguments); // Call ShareJS's socket.onopen
+      };
+    }
+
+    /**
+     * Set up the message handler for the socket.
+     *
+     * ShareJS immediately sets `socket.onmessage`, so we override that and ensure
+     * it does not try to parse messages like "pong".
+     *
+     * @private
+     */
+
+  }, {
+    key: 'setupSocketOnMessage',
+    value: function setupSocketOnMessage() {
+      var socket = this.socket;
+
+      socket._onmessage = socket.onmessage;
+      socket.onmessage = function onSocketMessage(message) {
+        if (message.data === 'pong') {
+          return;
+        }
+
+        return socket._onmessage(message);
       };
     }
   }]);

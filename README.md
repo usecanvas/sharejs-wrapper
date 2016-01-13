@@ -26,7 +26,7 @@ share.conect(function onConnect() {
   // The ShareJS document is ready to use.
 
   share.insert([0, 'insert some text']);
-  share.remove([0, 'insert some text'.length]);
+  share.remove([0, 'remove some text'.length]);
 
   share.on('insert', function onInsert(op) {
     // Handle an insert
