@@ -11,10 +11,10 @@ dist/index.js: index.js
 	$(BROWSERIFY) index.js -o dist/index.js -s ShareJSWrapper \
 		-t [ babelify --presets [ es2015 ] ]
 
-docs: index.js
+docs: index.js README.md package.json
 	rm -rf docs/
 	$(JSDOC) index.js -c .jsdocrc -d docs
 
 watch:
 	watchman watch $(shell pwd)
-	watchman -- trigger $(shell pwd) remake '*.js' '*.html' -- make build
+	watchman -- trigger $(shell pwd) remake 'index.js' 'README.md' 'package.json' -- make build
