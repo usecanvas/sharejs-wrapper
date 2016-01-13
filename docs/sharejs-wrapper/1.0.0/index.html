@@ -52,27 +52,26 @@ wrapper should take care of setting itself up and emitting events at the proper
 times.</p>
 <pre class="prettyprint source lang-javascript"><code>var ShareJSWrapper = require('sharejs-wrapper');
 
-var wrapper = new ShareJSWrapper({
+var share = new ShareJSWrapper({
   accessToken: user.apiAccessToken,
   canvasID: canvasID,
-  realtimeURL: 'https://api.usecanvas.com/realtime',
+  realtimeURL: 'wss://api.usecanvas.com/realtime',
   orgID: orgID
 });
 
-wrapper.on('ready', function onReady() {
+share.conect(function onConnect() {
   // The ShareJS document is ready to use.
 
-  wrapper.on('insert', function onInsert(op) {
+  share.insert([0, 'insert some text']);
+  share.remove([0, 'insert some text'.length]);
+
+  share.on('insert', function onInsert(op) {
+    // Handle an insert
   });
 
-  wrapper.on('remove', function onRemove(op) {
+  share.on('remove', function onRemove(op) {
+    // Handle a remove
   });
-});
-
-wrapper.on('disconnect', function onDisconnect(error, reason) {
-  if (error) {
-    // Unexpected disconnection...
-  }
 });</code></pre><h2>Example</h2><p>An example can be found in
 <a href="https://github.com/usecanvas/sharejs-wrapper/blob/master/test/server/public/main.js"><code>test/server/public/main.js</code></a>.</p></article>
     </section>

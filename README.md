@@ -15,27 +15,26 @@ times.
 ```javascript
 var ShareJSWrapper = require('sharejs-wrapper');
 
-var wrapper = new ShareJSWrapper({
+var share = new ShareJSWrapper({
   accessToken: user.apiAccessToken,
   canvasID: canvasID,
-  realtimeURL: 'https://api.usecanvas.com/realtime',
+  realtimeURL: 'wss://api.usecanvas.com/realtime',
   orgID: orgID
 });
 
-wrapper.on('ready', function onReady() {
+share.conect(function onConnect() {
   // The ShareJS document is ready to use.
 
-  wrapper.on('insert', function onInsert(op) {
+  share.insert([0, 'insert some text']);
+  share.remove([0, 'insert some text'.length]);
+
+  share.on('insert', function onInsert(op) {
+    // Handle an insert
   });
 
-  wrapper.on('remove', function onRemove(op) {
+  share.on('remove', function onRemove(op) {
+    // Handle a remove
   });
-});
-
-wrapper.on('disconnect', function onDisconnect(error, reason) {
-  if (error) {
-    // Unexpected disconnection...
-  }
 });
 ```
 
