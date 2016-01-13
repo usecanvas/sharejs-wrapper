@@ -22,20 +22,37 @@ var share = new ShareJSWrapper({
   orgID: orgID
 });
 
-share.conect(function onConnect() {
-  // The ShareJS document is ready to use.
+// Tell the client to connect to the ShareJS server.
+share.connect(function onConnect() {
+  // Get the current content of the document.
+  console.log(share.content);
 
+  // Send insert/remove operations to the server.
   share.insert([0, 'insert some text']);
   share.remove([0, 'remove some text'.length]);
 
+  // Handle an `insert` event from the server.
   share.on('insert', function onInsert(op) {
     // Handle an insert
   });
 
+  // Handle a `remove` event from the server.
   share.on('remove', function onRemove(op) {
     // Handle a remove
   });
 });
+
+/*
+ * Handle an unexpected disconnect event from the server. This happens when the
+ * client disconnects without having `.disconnect()` called, and several
+ * reconnection attempts fail.
+ */
+share.on('disconnect', function onDisconnect(err) {
+  console.log(err.message);
+});
+
+// Manually disconnect the client.
+share.disconnect();
 ```
 
 ## Example

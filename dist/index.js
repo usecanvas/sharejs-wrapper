@@ -27,6 +27,10 @@ var LOCAL_TIMEOUT = 4011;
 
 /**
  * @class ShareJSWrapper
+ * @classdesc A wrapper around a
+ *   [ShareJS](https://github.com/share/ShareJS/tree/v0.7.40) client, providing
+ *   easier use for a single document per connection
+ *
  * @param {Object} config An object of configuration options for this client
  * @param {string} config.accessToken A Canvas API authentication token
  * @param {string} config.canvasID An ID of a Canvas to connect to
@@ -43,6 +47,11 @@ var ShareJSWrapper = function () {
   }
 
   /**
+   * A callback called on successful connection after a `connect` call
+   *
+   * @callback ShareJSWrapper~connectCallback
+   */
+  /**
    * Tell the wrapper client to connect to the configured ShareJS server.
    *
    * @example
@@ -50,7 +59,8 @@ var ShareJSWrapper = function () {
    *   console.log(share.content);
    * });
    *
-   * @param {function} callback A callback to call once connected
+   * @param {ShareJSWrapper~connectCallback} callback A callback to call once
+   *   connected
    */
 
   _createClass(ShareJSWrapper, [{
@@ -81,8 +91,12 @@ var ShareJSWrapper = function () {
         _this.context.onInsert = bind(_this, 'onRemoteOperation');
         _this.context.onRemove = bind(_this, 'onRemoteOperation');
 
+        /**
+         * The current content of the ShareJS document
+         *
+         * @type {string}
+         */
         _this.content = _this.context.get();
-        _this.eventEmitter.emit('ready');
 
         if (callback) {
           callback();
@@ -287,7 +301,6 @@ var ShareJSWrapper = function () {
     key: 'onConnectionConnected',
     value: function onConnectionConnected() {
       this.debug('connectionConnected');
-      this.eventEmitter.emit('connected');
       this.reconnectAttempts = 0;
       this.connected = true;
     }
@@ -332,6 +345,16 @@ var ShareJSWrapper = function () {
       }
 
       if (error) {
+        /**
+         * An event emitted when the client has fatally disconnected and will no
+         * longer attempt reconnects.
+         *
+         * Check `err.message` for "abnormal", "no_pong", "forbidden",
+         * "not_found", or "unexpected".
+         *
+         * @event ShareJSWrapper#disconnected
+         * @type {Error}
+         */
         this.eventEmitter.emit('disconnected', error);
       }
     }
@@ -351,6 +374,23 @@ var ShareJSWrapper = function () {
       if (typeof value === 'string') {
         type = 'insert';
       }
+
+      /**
+       * An event emitted when the client receives an insert operation.
+       *
+       * An insert operation will look like `[0, "foo"]`.
+       *
+       * @event ShareJSWrapper#insert
+       * @type {Array.<(number|string)>}
+       */
+      /**
+       * An event emitted when the client receives a remove operation.
+       *
+       * A remove operation will look like `[0, 5]`.
+       *
+       * @event ShareJSWrapper#remove
+       * @type {Array.<number>}
+       */
 
       for (var _len = arguments.length, op = Array(_len), _key = 0; _key < _len; _key++) {
         op[_key] = arguments[_key];

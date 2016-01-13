@@ -2,28 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: index.js</title>
+    <title>index.js - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-
 <body>
 
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav class="nav">
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="ShareJSWrapper.html#event:disconnected">disconnected</a></li><li><a href="ShareJSWrapper.html#event:insert">insert</a></li><li><a href="ShareJSWrapper.html#event:remove">remove</a></li></ul><h3>Classes</h3><ul><li><a href="ShareJSWrapper.html">ShareJSWrapper</a><ul class='methods'><li data-type='method'><a href="ShareJSWrapper.html#connect">connect</a></li><li data-type='method'><a href="ShareJSWrapper.html#disconnect">disconnect</a></li><li data-type='method'><a href="ShareJSWrapper.html#insert">insert</a></li><li data-type='method'><a href="ShareJSWrapper.html#on">on</a></li><li data-type='method'><a href="ShareJSWrapper.html#once">once</a></li><li data-type='method'><a href="ShareJSWrapper.html#remove">remove</a></li><li data-type='method'><a href="ShareJSWrapper.html#removeAllListeners">removeAllListeners</a></li><li data-type='method'><a href="ShareJSWrapper.html#removeListener">removeListener</a></li></ul></li></ul>
+</nav>
+
 <div id="main">
-
-    <h1 class="page-title">Source: index.js</h1>
-
+    
+    <h1 class="page-title">index.js</h1>
     
 
+    <!--container.tmpl-->
 
 
-    
+
+
+    <!--source.tmpl-->
+
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import EventEmitter from 'eventemitter3';
@@ -37,6 +57,10 @@ const LOCAL_TIMEOUT = 4011;
 
 /**
  * @class ShareJSWrapper
+ * @classdesc A wrapper around a
+ *   [ShareJS](https://github.com/share/ShareJS/tree/v0.7.40) client, providing
+ *   easier use for a single document per connection
+ *
  * @param {Object} config An object of configuration options for this client
  * @param {string} config.accessToken A Canvas API authentication token
  * @param {string} config.canvasID An ID of a Canvas to connect to
@@ -50,6 +74,11 @@ export default class ShareJSWrapper {
   }
 
   /**
+   * A callback called on successful connection after a `connect` call
+   *
+   * @callback ShareJSWrapper~connectCallback
+   */
+  /**
    * Tell the wrapper client to connect to the configured ShareJS server.
    *
    * @example
@@ -57,7 +86,8 @@ export default class ShareJSWrapper {
    *   console.log(share.content);
    * });
    *
-   * @param {function} callback A callback to call once connected
+   * @param {ShareJSWrapper~connectCallback} callback A callback to call once
+   *   connected
    */
   connect(callback) {
     const { canvasID, orgID, realtimeURL } = this.config;
@@ -80,8 +110,12 @@ export default class ShareJSWrapper {
       this.context.onInsert = bind(this, 'onRemoteOperation');
       this.context.onRemove = bind(this, 'onRemoteOperation');
 
+      /**
+       * The current content of the ShareJS document
+       *
+       * @type {string}
+       */
       this.content = this.context.get();
-      this.eventEmitter.emit('ready');
 
       if (callback) {
         callback();
@@ -247,7 +281,6 @@ export default class ShareJSWrapper {
    */
   onConnectionConnected() {
     this.debug('connectionConnected');
-    this.eventEmitter.emit('connected');
     this.reconnectAttempts = 0;
     this.connected = true;
   }
@@ -290,6 +323,16 @@ export default class ShareJSWrapper {
     }
 
     if (error) {
+      /**
+       * An event emitted when the client has fatally disconnected and will no
+       * longer attempt reconnects.
+       *
+       * Check `err.message` for "abnormal", "no_pong", "forbidden",
+       * "not_found", or "unexpected".
+       *
+       * @event ShareJSWrapper#disconnected
+       * @type {Error}
+       */
       this.eventEmitter.emit('disconnected', error);
     }
   }
@@ -307,6 +350,22 @@ export default class ShareJSWrapper {
       type = 'insert';
     }
 
+    /**
+     * An event emitted when the client receives an insert operation.
+     *
+     * An insert operation will look like `[0, "foo"]`.
+     *
+     * @event ShareJSWrapper#insert
+     * @type {Array.&lt;(number|string)>}
+     */
+    /**
+     * An event emitted when the client receives a remove operation.
+     *
+     * A remove operation will look like `[0, 5]`.
+     *
+     * @event ShareJSWrapper#remove
+     * @type {Array.&lt;number>}
+     */
     this.eventEmitter.emit(type, op);
   }
 
@@ -454,19 +513,16 @@ function bind(target, method) {
 
 
 
-</div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ShareJSWrapper.html">ShareJSWrapper</a></li></ul>
-</nav>
+</div>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> using the LOKE theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

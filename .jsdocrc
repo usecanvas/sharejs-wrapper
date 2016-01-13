@@ -1,7 +1,8 @@
 {
   "opts": {
     "readme": "README.md",
-    "package": "package.json"
+    "package": "package.json",
+    "template": "node_modules/loke-jsdoc-theme"
   },
   "plugins": ["plugins/markdown"],
   "templates": {
