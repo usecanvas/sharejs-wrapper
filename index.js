@@ -52,7 +52,7 @@ export default class ShareJSWrapper {
       this.context.onInsert = bind(this, 'onRemoteOperation');
       this.context.onRemove = bind(this, 'onRemoteOperation');
 
-      this.content = this.document.snapshot;
+      this.content = this.context.get();
       this.eventEmitter.emit('ready');
 
       if (callback) {
@@ -83,7 +83,7 @@ export default class ShareJSWrapper {
   insert(offset, text) {
     this.debug('insert', ...arguments);
     this.context.insert(offset, text);
-    this.content = this.document.snapshot;
+    this.content = this.context.get();
   }
 
   /**
@@ -134,7 +134,7 @@ export default class ShareJSWrapper {
   remove(start, length) {
     this.debug('remove', ...arguments);
     this.context.remove(start, length);
-    this.content = this.document.snapshot;
+    this.content = this.context.get();
   }
 
   /**
@@ -272,7 +272,7 @@ export default class ShareJSWrapper {
    * @private
    */
   onRemoteOperation(...op) {
-    this.content = this.document.snapshot;
+    this.content = this.context.get();
 
     let type = 'remove';
     if (typeof value === 'string') {

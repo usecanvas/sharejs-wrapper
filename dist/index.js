@@ -81,7 +81,7 @@ var ShareJSWrapper = function () {
         _this.context.onInsert = bind(_this, 'onRemoteOperation');
         _this.context.onRemove = bind(_this, 'onRemoteOperation');
 
-        _this.content = _this.document.snapshot;
+        _this.content = _this.context.get();
         _this.eventEmitter.emit('ready');
 
         if (callback) {
@@ -118,7 +118,7 @@ var ShareJSWrapper = function () {
     value: function insert(offset, text) {
       this.debug.apply(this, ['insert'].concat(Array.prototype.slice.call(arguments)));
       this.context.insert(offset, text);
-      this.content = this.document.snapshot;
+      this.content = this.context.get();
     }
 
     /**
@@ -178,7 +178,7 @@ var ShareJSWrapper = function () {
     value: function remove(start, length) {
       this.debug.apply(this, ['remove'].concat(Array.prototype.slice.call(arguments)));
       this.context.remove(start, length);
-      this.content = this.document.snapshot;
+      this.content = this.context.get();
     }
 
     /**
@@ -345,7 +345,7 @@ var ShareJSWrapper = function () {
   }, {
     key: 'onRemoteOperation',
     value: function onRemoteOperation() {
-      this.content = this.document.snapshot;
+      this.content = this.context.get();
 
       var type = 'remove';
       if (typeof value === 'string') {

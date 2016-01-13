@@ -42,7 +42,8 @@
     disconnect.removeAttribute('disabled');
   });
 
-  shareJSA.on('disconnected', function onDisconnected(_err) {
+  shareJSA.on('disconnected', function onDisconnected(err) {
+    console.log('disconnected', err.message, err);
     areaA.setAttribute('disabled', true);
     disconnect.setAttribute('disabled', true);
     reconnect.removeAttribute('disabled');
