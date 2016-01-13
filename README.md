@@ -38,3 +38,8 @@ wrapper.on('disconnect', function onDisconnect(error, reason) {
   }
 });
 ```
+
+## Example
+
+An example can be found in
+[`test/server/public/main.js`](https://github.com/usecanvas/sharejs-wrapper/blob/master/test/server/public/main.js).
