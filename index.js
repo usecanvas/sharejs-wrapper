@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import ShareJS from 'share';
+import ShareJS      from 'share/lib/client';
 
 const ABNORMAL     = 1006;
 const NORMAL       = 1000;
