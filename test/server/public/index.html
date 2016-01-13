@@ -5,6 +5,11 @@
     <title>ShareJS Wrapper Test Page</title>
   </head>
   <body>
-    <script src='/index.js'></script>
+    <textarea id='area-a' cols=100 rows=30 disabled
+      style='float:left; margin-right:10px'></textarea>
+    <textarea id='area-b' cols=100 rows=30 disabled></textarea>
+
+    <script src='/index.js'></script><!-- ShareJS in dist/index.js -->
+    <script src='/main.js'></script><!-- JS in test/server/public/main.js -->
   </body>
 </html>

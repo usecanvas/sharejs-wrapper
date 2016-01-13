@@ -23,7 +23,7 @@ var wsServer = new WS.Server({ server: server });
 wsServer.on('connection', function onConnection(client) {
   var stream = new Duplex({ objectMode: true });
   stream._write = function stream__write(chunk, encoding, callback) {
-    console.log('s -> c', chunk);
+    console.log('server -> client\n ', chunk, '\n');
     client.send(JSON.stringify(chunk));
     callback();
   };
@@ -34,7 +34,12 @@ wsServer.on('connection', function onConnection(client) {
   stream.remoteAddress = client.upgradeReq.connection.remoteAddress;
 
   client.on('message', function onMessage(msg) {
-    console.log('c -> s', msg);
+    console.log('client -> server\n ', msg, '\n');
+
+    if (/^auth-token/.test(msg)) {
+      return;
+    }
+
     stream.push(JSON.parse(msg));
   });
 

@@ -26,52 +26,99 @@ var UNAUTHORIZED = 4010;
 
 /**
  * @class ShareJSWrapper
- * @param {Object} options An object of configuration options for this client
- * @param {string} options.accessToken A Canvas API authentication token
- * @param {string} options.canvasID An ID of a Canvas to connect to
- * @param {string} options.realtimeURL The URL of the realtime server
- * @param {string} options.orgID The ID of the org the canvas belongs to
+ * @param {Object} config An object of configuration options for this client
+ * @param {string} config.accessToken A Canvas API authentication token
+ * @param {string} config.canvasID An ID of a Canvas to connect to
+ * @param {string} config.realtimeURL The URL of the realtime server
+ * @param {string} config.orgID The ID of the org the canvas belongs to
  */
 
 var ShareJSWrapper = function () {
-  function ShareJSWrapper(_ref) {
-    var accessToken = _ref.accessToken;
-    var canvasID = _ref.canvasID;
-    var realtimeURL = _ref.realtimeURL;
-    var orgID = _ref.orgID;
-
+  function ShareJSWrapper(config) {
     _classCallCheck(this, ShareJSWrapper);
 
-    this.accessToken = accessToken;
+    this.config = config;
     this.eventEmitter = new _eventemitter2.default();
-    this.canvasID = canvasID;
-    this.orgID = orgID;
-
-    this.socket = new WebSocket(realtimeURL);
-    this.connection = this.getShareJSConnection();
-    this.bindConnectionEvents();
-
-    this.document = this.connection.get(orgID, canvasID);
-    this.document.subscribe();
-    this.context = this.getDocumentContext();
-    this.document.whenReady(bind(this, 'onDocumentReady'));
   }
 
   /**
-   * Add a listener to an event.
+   * Tell the wrapper client to connect to the configured ShareJS server.
    *
    * @example
-   * share.on('connect', function onConnect() {
-   *   // ...
+   * share.connect(function onConnected() {
+   *   console.log(share.content);
    * });
    *
-   * @param {string} event The name of the event
-   * @param {function} fn The function to call when the event occurs
-   * @param {*} context The context on which to call the function
-   * @return {ShareJSWrapper} This same instance
+   * @param {function} callback A callback to call once connected
    */
 
   _createClass(ShareJSWrapper, [{
+    key: 'connect',
+    value: function connect(callback) {
+      var _this = this;
+
+      var _config = this.config;
+      var canvasID = _config.canvasID;
+      var orgID = _config.orgID;
+      var realtimeURL = _config.realtimeURL;
+
+      this.socket = new WebSocket(realtimeURL);
+      this.connection = this.getShareJSConnection();
+      this.bindConnectionEvents();
+
+      this.document = this.connection.get(orgID, canvasID);
+      this.document.subscribe();
+
+      this.document.whenReady(function (_) {
+        if (!_this.document.type) {
+          _this.document.create('text');
+        }
+
+        _this.context = _this.getDocumentContext();
+        _this.context.onInsert = bind(_this, 'onRemoteOperation');
+        _this.context.onRemove = bind(_this, 'onRemoteOperation');
+
+        _this.content = _this.document.snapshot;
+        _this.eventEmitter.emit('ready');
+
+        if (callback) {
+          callback();
+        }
+      });
+    }
+
+    /**
+     * Send an insert operation from this client to the server.
+     *
+     * @example
+     * share.insert(10, 'Foo');
+     *
+     * @param {number} offset The offset at which to start the insert operation
+     * @param {string} text The text to be inserted
+     */
+
+  }, {
+    key: 'insert',
+    value: function insert(offset, text) {
+      this.context.insert(offset, text);
+      this.content = this.document.snapshot;
+    }
+
+    /**
+     * Add a listener to an event.
+     *
+     * @example
+     * share.on('connect', function onConnect() {
+     *   // ...
+     * });
+     *
+     * @param {string} event The name of the event
+     * @param {function} fn The function to call when the event occurs
+     * @param {*} context The context on which to call the function
+     * @return {ShareJSWrapper} This same instance
+     */
+
+  }, {
     key: 'on',
     value: function on(event, fn, context) {
       this.eventEmitter.on(event, fn, context);
@@ -97,6 +144,23 @@ var ShareJSWrapper = function () {
     value: function once(event, fn, context) {
       this.eventEmitter.once(event, fn, context);
       return this;
+    }
+
+    /**
+     * Send a remove operation from this client to the server.
+     *
+     * @example
+     * share.remove(0, 3);
+     *
+     * @param {number} start The position at which to start the remove
+     * @param {number} length The number of characters to remove
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(start, length) {
+      this.context.remove(start, length);
+      this.content = this.document.snapshot;
     }
 
     /**
@@ -159,7 +223,7 @@ var ShareJSWrapper = function () {
   }, {
     key: 'getDocumentContext',
     value: function getDocumentContext() {
-      var _this = this;
+      var _this2 = this;
 
       var context = this.document.createContext();
 
@@ -168,10 +232,10 @@ var ShareJSWrapper = function () {
       }
 
       context.onInsert = function (op) {
-        return _this.eventEmitter.emit('insert', op);
+        return _this2.eventEmitter.emit('insert', op);
       };
       context.onRemove = function (op) {
-        return _this.eventEmitter.emit('remove', op);
+        return _this2.eventEmitter.emit('remove', op);
       };
       context.detach = null;
 
@@ -248,21 +312,26 @@ var ShareJSWrapper = function () {
     }
 
     /**
-     * Handle the document ready event, meaning the WebSocket is set up and
-     * messages are being received successfully.
+     * Handle a remote operation from the server to this client.
      *
      * @private
      */
 
   }, {
-    key: 'onDocumentReady',
-    value: function onDocumentReady() {
-      if (!document.type) {
-        document.create('text');
+    key: 'onRemoteOperation',
+    value: function onRemoteOperation() {
+      this.content = this.document.snapshot;
+
+      var type = 'remove';
+      if (typeof value === 'string') {
+        type = 'insert';
       }
 
-      this.text = this.document.snapshot;
-      this.eventEmitter.emit('ready');
+      for (var _len = arguments.length, op = Array(_len), _key = 0; _key < _len; _key++) {
+        op[_key] = arguments[_key];
+      }
+
+      this.eventEmitter.emit(type, op);
     }
 
     /**
@@ -278,7 +347,7 @@ var ShareJSWrapper = function () {
   }, {
     key: 'setupSocketAuthentication',
     value: function setupSocketAuthentication() {
-      var accessToken = this.accessToken;
+      var accessToken = this.config.accessToken;
       var socket = this.socket;
 
       socket._onopen = socket.onopen; // Override ShareJS's socket.onopen

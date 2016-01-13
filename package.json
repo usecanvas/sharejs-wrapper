@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "make",
-    "server": "node test/server",
+    "server": "nodemon --watch test/server/index.js test/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "connect": "3.4.0",
     "jsdoc": "3.4.0",
     "livedb": "0.5.13",
+    "nodemon": "1.8.1",
     "optimist": "0.6.1",
     "serve-static": "1.10.0",
     "ws": "1.0.1"

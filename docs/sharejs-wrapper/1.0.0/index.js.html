@@ -36,18 +36,30 @@ const UNAUTHORIZED = 4010;
 
 /**
  * @class ShareJSWrapper
- * @param {Object} options An object of configuration options for this client
- * @param {string} options.accessToken A Canvas API authentication token
- * @param {string} options.canvasID An ID of a Canvas to connect to
- * @param {string} options.realtimeURL The URL of the realtime server
- * @param {string} options.orgID The ID of the org the canvas belongs to
+ * @param {Object} config An object of configuration options for this client
+ * @param {string} config.accessToken A Canvas API authentication token
+ * @param {string} config.canvasID An ID of a Canvas to connect to
+ * @param {string} config.realtimeURL The URL of the realtime server
+ * @param {string} config.orgID The ID of the org the canvas belongs to
  */
 export default class ShareJSWrapper {
-  constructor({ accessToken, canvasID, realtimeURL, orgID }) {
-    this.accessToken = accessToken;
+  constructor(config) {
+    this.config = config;
     this.eventEmitter = new EventEmitter();
-    this.canvasID = canvasID;
-    this.orgID = orgID;
+  }
+
+  /**
+   * Tell the wrapper client to connect to the configured ShareJS server.
+   *
+   * @example
+   * share.connect(function onConnected() {
+   *   console.log(share.content);
+   * });
+   *
+   * @param {function} callback A callback to call once connected
+   */
+  connect(callback) {
+    const { canvasID, orgID, realtimeURL } = this.config;
 
     this.socket = new WebSocket(realtimeURL);
     this.connection = this.getShareJSConnection();
@@ -55,8 +67,37 @@ export default class ShareJSWrapper {
 
     this.document = this.connection.get(orgID, canvasID);
     this.document.subscribe();
-    this.context = this.getDocumentContext();
-    this.document.whenReady(bind(this, 'onDocumentReady'));
+
+    this.document.whenReady(_ => {
+      if (!this.document.type) {
+        this.document.create('text');
+      }
+
+      this.context = this.getDocumentContext();
+      this.context.onInsert = bind(this, 'onRemoteOperation');
+      this.context.onRemove = bind(this, 'onRemoteOperation');
+
+      this.content = this.document.snapshot;
+      this.eventEmitter.emit('ready');
+
+      if (callback) {
+        callback();
+      }
+    });
+  }
+
+  /**
+   * Send an insert operation from this client to the server.
+   *
+   * @example
+   * share.insert(10, 'Foo');
+   *
+   * @param {number} offset The offset at which to start the insert operation
+   * @param {string} text The text to be inserted
+   */
+  insert(offset, text) {
+    this.context.insert(offset, text);
+    this.content = this.document.snapshot;
   }
 
   /**
@@ -93,6 +134,20 @@ export default class ShareJSWrapper {
   once(event, fn, context) {
     this.eventEmitter.once(event, fn, context);
     return this;
+  }
+
+  /**
+   * Send a remove operation from this client to the server.
+   *
+   * @example
+   * share.remove(0, 3);
+   *
+   * @param {number} start The position at which to start the remove
+   * @param {number} length The number of characters to remove
+   */
+  remove(start, length) {
+    this.context.remove(start, length);
+    this.content = this.document.snapshot;
   }
 
   /**
@@ -216,18 +271,19 @@ export default class ShareJSWrapper {
   }
 
   /**
-   * Handle the document ready event, meaning the WebSocket is set up and
-   * messages are being received successfully.
+   * Handle a remote operation from the server to this client.
    *
    * @private
    */
-  onDocumentReady() {
-    if (!document.type) {
-      document.create('text');
+  onRemoteOperation(...op) {
+    this.content = this.document.snapshot;
+
+    let type = 'remove';
+    if (typeof value === 'string') {
+      type = 'insert';
     }
 
-    this.text = this.document.snapshot;
-    this.eventEmitter.emit('ready');
+    this.eventEmitter.emit(type, op);
   }
 
   /**
@@ -240,7 +296,8 @@ export default class ShareJSWrapper {
    * @private
    */
   setupSocketAuthentication() {
-    const { accessToken, socket } = this;
+    const { accessToken } = this.config;
+    const { socket      } = this;
 
     socket._onopen = socket.onopen; // Override ShareJS's socket.onopen
 
