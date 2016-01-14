@@ -16,6 +16,10 @@
   shareJSA.connect(function onConnected() {
     areaA.value = shareJSA.content;
 
+    areaA.removeAttribute('disabled');
+    reconnect.setAttribute('disabled', true);
+    disconnect.removeAttribute('disabled');
+
     // So that we don't try to create the document twice, we wait until
     // shareJSA has connected.
     shareJSB = new ShareJSWrapper({
@@ -34,12 +38,6 @@
     // Set the value of the listening text box on remote operations
     shareJSB.on('insert', _op => areaB.value = shareJSB.content);
     shareJSB.on('remove', _op => areaB.value = shareJSB.content);
-  });
-
-  shareJSA.on('connected', function onConnected() {
-    areaA.removeAttribute('disabled');
-    reconnect.setAttribute('disabled', true);
-    disconnect.removeAttribute('disabled');
   });
 
   shareJSA.on('disconnected', function onDisconnected(err) {

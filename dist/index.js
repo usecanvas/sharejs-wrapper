@@ -255,20 +255,12 @@ var ShareJSWrapper = function () {
   }, {
     key: 'getDocumentContext',
     value: function getDocumentContext() {
-      var _this2 = this;
-
       var context = this.document.createContext();
 
       if (!context.provides.text) {
         throw new Error('Cannot attach to a non-text document');
       }
 
-      context.onInsert = function (op) {
-        return _this2.eventEmitter.emit('insert', op);
-      };
-      context.onRemove = function (op) {
-        return _this2.eventEmitter.emit('remove', op);
-      };
       context.detach = null;
 
       return context;
@@ -310,6 +302,7 @@ var ShareJSWrapper = function () {
      *
      * @private
      * @param {Event} event A disconnection event
+     * @emits ShareJSWrapper#disconnected
      */
 
   }, {
@@ -363,6 +356,8 @@ var ShareJSWrapper = function () {
      * Handle a remote operation from the server to this client.
      *
      * @private
+     * @emits ShareJSWrapper#insert
+     * @emits ShareJSWrapper#remove
      */
 
   }, {
@@ -408,12 +403,12 @@ var ShareJSWrapper = function () {
   }, {
     key: 'onSocketPong',
     value: function onSocketPong() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.receivedPong = true;
 
       setTimeout(function (_) {
-        _this3.sendPing();
+        _this2.sendPing();
       }, 5000);
     }
 
@@ -426,7 +421,7 @@ var ShareJSWrapper = function () {
   }, {
     key: 'reconnect',
     value: function reconnect() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.reconnectAttempts = this.reconnectAttempts || 0;
 
@@ -434,8 +429,8 @@ var ShareJSWrapper = function () {
       var time = getInterval();
 
       setTimeout(function (_) {
-        _this4.reconnectAttempts = _this4.reconnectAttempts + 1;
-        _this4.connect();
+        _this3.reconnectAttempts = _this3.reconnectAttempts + 1;
+        _this3.connect();
       }, time);
 
       function getInterval() {
@@ -458,7 +453,7 @@ var ShareJSWrapper = function () {
   }, {
     key: 'sendPing',
     value: function sendPing() {
-      var _this5 = this;
+      var _this4 = this;
 
       if (this.config.noPing) {
         return;
@@ -470,8 +465,8 @@ var ShareJSWrapper = function () {
         this.receivedPong = false;
         socket.send('ping');
         this.pongWait = setTimeout(function (_) {
-          if (!_this5.receivedPong) {
-            _this5.socket.close(LOCAL_TIMEOUT);
+          if (!_this4.receivedPong) {
+            _this4.socket.close(LOCAL_TIMEOUT);
           }
         }, 1000);
       }
@@ -490,7 +485,7 @@ var ShareJSWrapper = function () {
   }, {
     key: 'setupSocketAuthentication',
     value: function setupSocketAuthentication() {
-      var _this6 = this,
+      var _this5 = this,
           _arguments = arguments;
 
       var accessToken = this.config.accessToken;
@@ -498,7 +493,7 @@ var ShareJSWrapper = function () {
 
       var _onopen = bind(socket, 'onopen');
       socket.onopen = function (_) {
-        _this6.debug('sending auth token');
+        _this5.debug('sending auth token');
 
         socket.send('auth-token:' + accessToken);
         _onopen.apply(undefined, _arguments);

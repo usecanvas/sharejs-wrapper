@@ -205,9 +205,7 @@ export default class ShareJSWrapper {
       throw new Error('Cannot attach to a non-text document');
     }
 
-    context.onInsert = op => this.eventEmitter.emit('insert', op);
-    context.onRemove = op => this.eventEmitter.emit('remove', op);
-    context.detach   = null;
+    context.detach = null;
 
     return context;
   }
@@ -242,6 +240,7 @@ export default class ShareJSWrapper {
    *
    * @private
    * @param {Event} event A disconnection event
+   * @emits ShareJSWrapper#disconnected
    */
   onConnectionDisonnected(event) {
     this.debug('connectionDisconnected', ...arguments, event.code);
@@ -293,6 +292,8 @@ export default class ShareJSWrapper {
    * Handle a remote operation from the server to this client.
    *
    * @private
+   * @emits ShareJSWrapper#insert
+   * @emits ShareJSWrapper#remove
    */
   onRemoteOperation(...op) {
     this.content = this.context.get();

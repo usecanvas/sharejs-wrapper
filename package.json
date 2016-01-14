@@ -1,5 +1,5 @@
 {
-  "name": "sharejs-wrapper",
+  "name": "@usecanvas/sharejs-wrapper",
   "description": "A wrapper around ShareJS for easier iOS development",
   "version": "1.0.0",
   "author": "Jonathan Clem <jotclem@gmail.com>",
