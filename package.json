@@ -11,7 +11,6 @@
     "sharejs"
   ],
   "main": "index.js",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/usecanvas/sharejs-wrapper.git"
