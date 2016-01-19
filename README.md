@@ -26,8 +26,8 @@ share.connect(function onConnect() {
   console.log(share.content);
 
   // Send insert/remove operations to the server.
-  share.insert([0, 'insert some text']);
-  share.remove([0, 'remove some text'.length]);
+  share.insert(0, 'insert some text');
+  share.remove(0, 'remove some text'.length);
 
   // Handle an `insert` event from the server.
   share.on('insert', function onInsert(op) {
