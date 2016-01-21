@@ -4,6 +4,11 @@ This is a wrapper around the somewhat confusing
 [ShareJS API](https://github.com/share/ShareJS/tree/v0.7.40), and it also tries
 to simplify handling disconnected WebSocket clients.
 
+## Documentation
+
+The rendered documentation can be found
+[here](https://usecanvas.github.io/sharejs-wrapper).
+
 ## Usage
 
 The ShareJS Wrapper object is an event emitter. Create a wrapper, and the

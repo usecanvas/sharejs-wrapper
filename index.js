@@ -8,6 +8,26 @@ const UNAUTHORIZED  = 4010;
 const LOCAL_TIMEOUT = 4011;
 
 /**
+ * A two-element array consisting of a length of text to retain and a string to
+ * insert
+ *
+ * @example
+ * [10, "Foo"]
+ *
+ * @typedef {Array<(number|string)>} ShareJSWrapper~Insert
+ */
+
+/**
+ * A two-element array consisting of a length of text to retain and a length of
+ * text to remove
+ *
+ * @example
+ * [10, 12]
+ *
+ * @typedef {Array<number>} ShareJSWrapper~Remove
+ */
+
+/**
  * @class ShareJSWrapper
  * @classdesc A wrapper around a
  *   [ShareJS](https://github.com/share/ShareJS/tree/v0.7.40) client, providing
@@ -313,7 +333,7 @@ export default class ShareJSWrapper {
      * An insert operation will look like `[0, "foo"]`.
      *
      * @event ShareJSWrapper#insert
-     * @type {Array.<(number|string)>}
+     * @type {ShareJSWrapper~Insert}
      */
     /**
      * An event emitted when the client receives a remove operation.
@@ -321,7 +341,7 @@ export default class ShareJSWrapper {
      * A remove operation will look like `[0, 5]`.
      *
      * @event ShareJSWrapper#remove
-     * @type {Array.<number>}
+     * @type {ShareJSWrapper~Remove}
      */
     this.eventEmitter.emit(type, [retain, value]);
   }
