@@ -2838,7 +2838,8 @@ longer attempt reconnects.</p>
 
 
 <div class="description">
-    <p>An event emitted when the client receives an insert operation.</p>
+    <p>An event emitted when the client receives an exploded
+<a href="ShareJSWrapper.html#~Insert">Insert</a> operation.</p>
 <p>An insert operation will look like <code>[0, &quot;foo&quot;]</code>.</p>
 </div>
 
@@ -2851,16 +2852,6 @@ longer attempt reconnects.</p>
 
 <div class="collapse_" id="methodCollapse-insert">
 
-  
-      <h5>Type:</h5>
-      <ul>
-          <li>
-              
-<span class="param-type"><a href="ShareJSWrapper.html#~Insert">ShareJSWrapper~Insert</a></span>
-
-
-          </li>
-      </ul>
   
 
   
@@ -2919,6 +2910,81 @@ longer attempt reconnects.</p>
 
 
 
+  <div id="params-insert" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>retain</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The length being retained in the insert</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The value being inserted</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
 
 
 
@@ -2941,7 +3007,7 @@ longer attempt reconnects.</p>
 
 <!--
 <pre>
-{"comment":"/**\n     * An event emitted when the client receives an insert operation.\n     *\n     * An insert operation will look like `[0, \"foo\"]`.\n     *\n     * @event ShareJSWrapper#insert\n     * @type {ShareJSWrapper~Insert}\n     */","meta":{"range":[8504,8728],"filename":"index.js","lineno":330,"path":"/Users/clem/Projects/sharejs-wrapper","code":{},"shortpath":"index.js"},"description":"<p>An event emitted when the client receives an insert operation.</p>\n<p>An insert operation will look like <code>[0, &quot;foo&quot;]</code>.</p>","kind":"event","name":"insert","type":{"names":["ShareJSWrapper~Insert"]},"memberof":"ShareJSWrapper","longname":"ShareJSWrapper#event:insert","scope":"instance","___id":"T000002R000058","___s":true,"attribs":"","id":"event:insert","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+{"comment":"/**\n     * An event emitted when the client receives an exploded\n     * <a href="ShareJSWrapper.html#~Insert">Insert</a> operation.\n     *\n     * An insert operation will look like `[0, \"foo\"]`.\n     *\n     * @event ShareJSWrapper#insert\n     * @param {number} retain The length being retained in the insert\n     * @param {string} value The value being inserted\n     */","meta":{"range":[8504,8861],"filename":"index.js","lineno":330,"path":"/Users/clem/Projects/sharejs-wrapper","code":{},"shortpath":"index.js"},"description":"<p>An event emitted when the client receives an exploded\n<a href="ShareJSWrapper.html#~Insert">Insert</a> operation.</p>\n<p>An insert operation will look like <code>[0, &quot;foo&quot;]</code>.</p>","kind":"event","name":"insert","params":[{"type":{"names":["number"]},"description":"<p>The length being retained in the insert</p>","name":"retain"},{"type":{"names":["string"]},"description":"<p>The value being inserted</p>","name":"value"}],"memberof":"ShareJSWrapper","longname":"ShareJSWrapper#event:insert","scope":"instance","___id":"T000002R000058","___s":true,"attribs":"","id":"event:insert","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
 </pre>
 -->
 </div>
@@ -2958,7 +3024,7 @@ longer attempt reconnects.</p>
 <div class="pull-right source-link-container">
   <code class="source-link" data-tmpl="method-tmpl(1)">
     <i class="fa fa-file-o"></i>
-    <a href="index.js.html">index.js</a>:<a href="index.js.html#line338">338</a>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line340">340</a>
   </code>
 </div>
 
@@ -2989,7 +3055,8 @@ longer attempt reconnects.</p>
 
 
 <div class="description">
-    <p>An event emitted when the client receives a remove operation.</p>
+    <p>An event emitted when the client receives an exploded
+<a href="ShareJSWrapper.html#~Remove">Remove</a> operation.</p>
 <p>A remove operation will look like <code>[0, 5]</code>.</p>
 </div>
 
@@ -3002,16 +3069,6 @@ longer attempt reconnects.</p>
 
 <div class="collapse_" id="methodCollapse-remove">
 
-  
-      <h5>Type:</h5>
-      <ul>
-          <li>
-              
-<span class="param-type"><a href="ShareJSWrapper.html#~Remove">ShareJSWrapper~Remove</a></span>
-
-
-          </li>
-      </ul>
   
 
   
@@ -3026,7 +3083,7 @@ longer attempt reconnects.</p>
 <div class="pull-right source-link-container">
   <code class="source-link" data-tmpl="method-tmpl(1)">
     <i class="fa fa-file-o"></i>
-    <a href="index.js.html">index.js</a>:<a href="index.js.html#line338">338</a>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line340">340</a>
   </code>
 </div>
 
@@ -3070,6 +3127,81 @@ longer attempt reconnects.</p>
 
 
 
+  <div id="params-remove" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>retain</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The length being retained in the insert</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The length being removed</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
 
 
 
@@ -3092,7 +3224,7 @@ longer attempt reconnects.</p>
 
 <!--
 <pre>
-{"comment":"/**\n     * An event emitted when the client receives a remove operation.\n     *\n     * A remove operation will look like `[0, 5]`.\n     *\n     * @event ShareJSWrapper#remove\n     * @type {ShareJSWrapper~Remove}\n     */","meta":{"range":[8733,8951],"filename":"index.js","lineno":338,"path":"/Users/clem/Projects/sharejs-wrapper","code":{},"shortpath":"index.js"},"description":"<p>An event emitted when the client receives a remove operation.</p>\n<p>A remove operation will look like <code>[0, 5]</code>.</p>","kind":"event","name":"remove","type":{"names":["ShareJSWrapper~Remove"]},"memberof":"ShareJSWrapper","longname":"ShareJSWrapper#event:remove","scope":"instance","___id":"T000002R000059","___s":true,"attribs":"","id":"event:remove","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+{"comment":"/**\n     * An event emitted when the client receives an exploded\n     * <a href="ShareJSWrapper.html#~Remove">Remove</a> operation.\n     *\n     * A remove operation will look like `[0, 5]`.\n     *\n     * @event ShareJSWrapper#remove\n     * @param {number} retain The length being retained in the insert\n     * @param {number} value The length being removed\n     */","meta":{"range":[8866,9218],"filename":"index.js","lineno":340,"path":"/Users/clem/Projects/sharejs-wrapper","code":{},"shortpath":"index.js"},"description":"<p>An event emitted when the client receives an exploded\n<a href="ShareJSWrapper.html#~Remove">Remove</a> operation.</p>\n<p>A remove operation will look like <code>[0, 5]</code>.</p>","kind":"event","name":"remove","params":[{"type":{"names":["number"]},"description":"<p>The length being retained in the insert</p>","name":"retain"},{"type":{"names":["number"]},"description":"<p>The length being removed</p>","name":"value"}],"memberof":"ShareJSWrapper","longname":"ShareJSWrapper#event:remove","scope":"instance","___id":"T000002R000059","___s":true,"attribs":"","id":"event:remove","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
 </pre>
 -->
 </div>

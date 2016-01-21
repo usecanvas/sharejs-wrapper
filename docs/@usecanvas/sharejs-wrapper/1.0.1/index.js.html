@@ -376,22 +376,26 @@ export default class ShareJSWrapper {
     }
 
     /**
-     * An event emitted when the client receives an insert operation.
+     * An event emitted when the client receives an exploded
+     * {@link ShareJSWrapper~Insert Insert} operation.
      *
      * An insert operation will look like `[0, "foo"]`.
      *
      * @event ShareJSWrapper#insert
-     * @type {ShareJSWrapper~Insert}
+     * @param {number} retain The length being retained in the insert
+     * @param {string} value The value being inserted
      */
     /**
-     * An event emitted when the client receives a remove operation.
+     * An event emitted when the client receives an exploded
+     * {@link ShareJSWrapper~Remove Remove} operation.
      *
      * A remove operation will look like `[0, 5]`.
      *
      * @event ShareJSWrapper#remove
-     * @type {ShareJSWrapper~Remove}
+     * @param {number} retain The length being retained in the insert
+     * @param {number} value The length being removed
      */
-    this.eventEmitter.emit(type, [retain, value]);
+    this.eventEmitter.emit(type, retain, value);
   }
 
   /**

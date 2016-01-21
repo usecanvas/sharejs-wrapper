@@ -36,8 +36,8 @@
     });
 
     // Set the value of the listening text box on remote operations
-    shareJSB.on('insert', _op => areaB.value = shareJSB.content);
-    shareJSB.on('remove', _op => areaB.value = shareJSB.content);
+    shareJSB.on('insert', _ => areaB.value = shareJSB.content);
+    shareJSB.on('remove', _ => areaB.value = shareJSB.content);
   });
 
   shareJSA.on('disconnected', function onDisconnected(err) {

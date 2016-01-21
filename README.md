@@ -6,7 +6,7 @@ to simplify handling disconnected WebSocket clients.
 
 ## Documentation
 
-The rendered documentation can be found
+The full documentation can be found
 [here](https://usecanvas.github.io/sharejs-wrapper).
 
 ## Usage
