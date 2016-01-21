@@ -23,7 +23,7 @@ var wsServer = new WS.Server({ server: server });
 wsServer.on('connection', function onConnection(client) {
   var stream = new Duplex({ objectMode: true });
   stream._write = function stream__write(chunk, encoding, callback) {
-    console.log('server -> client\n ', chunk, '\n');
+    log('server -> client\n ', chunk, '\n');
     clientSend(JSON.stringify(chunk));
     callback();
   };
@@ -34,11 +34,11 @@ wsServer.on('connection', function onConnection(client) {
   stream.remoteAddress = client.upgradeReq.connection.remoteAddress;
 
   client.on('message', function onMessage(msg) {
-    console.log('client -> server\n ', msg, '\n');
+    log('client -> server\n ', msg, '\n');
 
     if (msg === 'ping') {
       clientSend('pong');
-      console.log('server -> client\n', 'pong\n');
+      log('server -> client\n', 'pong\n');
       return;
     }
 
@@ -56,7 +56,7 @@ wsServer.on('connection', function onConnection(client) {
   client.on('close', function onClose(reason) {
     stream.push(null);
     stream.emit('close');
-    console.log('client went away');
+    log('client went away');
     client.close(reason);
   });
 
@@ -74,6 +74,24 @@ wsServer.on('connection', function onConnection(client) {
 });
 
 var port = ARGV.p || 3000;
-server.listen(port, function onListening() {
-  console.log('listening on port', this.address().port);
-});
+
+if (process.env.NODE_ENV === 'test') {
+  exports.server = server;
+
+  exports.listen = function listen(cb) {
+    server.listen(port, function onListening() {
+      log('listening on port', this.address().port);
+      cb();
+    });
+  };
+} else {
+  server.listen(port, function onListening() {
+    log('listening on port', this.address().port);
+  });
+}
+
+function log() {
+  if (process.env.NODE_ENV !== 'test') {
+    console.log.apply(console, arguments);
+  }
+}
