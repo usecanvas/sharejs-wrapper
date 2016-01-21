@@ -356,13 +356,17 @@ var ShareJSWrapper = function () {
      * Handle a remote operation from the server to this client.
      *
      * @private
+     * @param {number} retain The number of characters to retain before
+     *   insert/remove
+     * @param {(number|string)} value The value of the operation—a string for an
+     *   insert or a number for a remove
      * @emits ShareJSWrapper#insert
      * @emits ShareJSWrapper#remove
      */
 
   }, {
     key: 'onRemoteOperation',
-    value: function onRemoteOperation() {
+    value: function onRemoteOperation(retain, value) {
       this.content = this.context.get();
 
       var type = 'remove';
@@ -386,12 +390,7 @@ var ShareJSWrapper = function () {
        * @event ShareJSWrapper#remove
        * @type {Array.<number>}
        */
-
-      for (var _len = arguments.length, op = Array(_len), _key = 0; _key < _len; _key++) {
-        op[_key] = arguments[_key];
-      }
-
-      this.eventEmitter.emit(type, op);
+      this.eventEmitter.emit(type, [retain, value]);
     }
 
     /**

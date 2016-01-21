@@ -292,10 +292,14 @@ export default class ShareJSWrapper {
    * Handle a remote operation from the server to this client.
    *
    * @private
+   * @param {number} retain The number of characters to retain before
+   *   insert/remove
+   * @param {(number|string)} value The value of the operation—a string for an
+   *   insert or a number for a remove
    * @emits ShareJSWrapper#insert
    * @emits ShareJSWrapper#remove
    */
-  onRemoteOperation(...op) {
+  onRemoteOperation(retain, value) {
     this.content = this.context.get();
 
     let type = 'remove';
@@ -319,7 +323,7 @@ export default class ShareJSWrapper {
      * @event ShareJSWrapper#remove
      * @type {Array.<number>}
      */
-    this.eventEmitter.emit(type, op);
+    this.eventEmitter.emit(type, [retain, value]);
   }
 
   /**
