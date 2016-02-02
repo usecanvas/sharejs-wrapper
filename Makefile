@@ -20,5 +20,4 @@ docs: index.js README.md package.json
 	$(JSDOC) index.js -c .jsdocrc -d docs
 
 watch:
-	watchman watch $(shell pwd)
-	watchman -- trigger $(shell pwd) remake 'index.js' 'README.md' 'package.json' -- make build
+	watchman-make -p index.js README.md package.json -t build

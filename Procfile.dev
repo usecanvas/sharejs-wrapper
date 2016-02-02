@@ -1,0 +1,2 @@
+dummy: npm run server
+make: npm run watch

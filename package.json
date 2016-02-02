@@ -18,7 +18,9 @@
   "scripts": {
     "build": "make",
     "server": "nodemon --watch test/server/index.js test/server",
-    "test": "NODE_ENV=test mocha --compilers js:babel-register \"test/**/*-test.js\""
+    "test": "NODE_ENV=test mocha --compilers js:babel-register \"test/**/*-test.js\"",
+    "watch": "make watch",
+    "dev": "nf start -j Procfile.dev"
   },
   "dependencies": {
     "eventemitter3": "1.1.1",
