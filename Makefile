@@ -9,8 +9,8 @@ build: dist/index.js dist/index.min.js docs
 dist/index.js: index.js
 	rm -rf dist/
 	mkdir -p dist
-	$(BROWSERIFY) index.js -o dist/index.js -s ShareJSWrapper \
-		-t [ babelify --presets [ es2015 ] ]
+	$(BROWSERIFY) index.js -s ShareJSWrapper \
+		-t [ babelify --presets [ es2015 ] ] | $(UGLIFY) --beautify > dist/index.js
 
 dist/index.min.js: dist/index.js
 	$(UGLIFY) dist/index.js -o dist/index.min.js
