@@ -162,7 +162,7 @@
                     key: "bindConnectionEvents",
                     value: function bindConnectionEvents() {
                         this.connection.on("connected", bind(this, "onConnectionConnected"));
-                        this.connection.on("disconnected", bind(this, "onConnectionDisonnected"));
+                        this.connection.on("disconnected", bind(this, "onConnectionDisconnected"));
                     }
                 }, {
                     key: "getDocumentContext",
@@ -191,8 +191,8 @@
                         this.connected = true;
                     }
                 }, {
-                    key: "onConnectionDisonnected",
-                    value: function onConnectionDisonnected(event) {
+                    key: "onConnectionDisconnected",
+                    value: function onConnectionDisconnected(event) {
                         this.debug.apply(this, [ "connectionDisconnected" ].concat(Array.prototype.slice.call(arguments), [ event.code ]));
                         this.connected = false;
                         clearTimeout(this.pongWait);

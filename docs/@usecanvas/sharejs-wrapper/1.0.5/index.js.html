@@ -257,7 +257,7 @@ export default class ShareJSWrapper {
    */
   bindConnectionEvents() {
     this.connection.on('connected', bind(this, 'onConnectionConnected'));
-    this.connection.on('disconnected', bind(this, 'onConnectionDisonnected'));
+    this.connection.on('disconnected', bind(this, 'onConnectionDisconnected'));
   }
 
   /**
@@ -310,7 +310,7 @@ export default class ShareJSWrapper {
    * @param {Event} event A disconnection event
    * @emits ShareJSWrapper#disconnect
    */
-  onConnectionDisonnected(event) {
+  onConnectionDisconnected(event) {
     this.debug('connectionDisconnected', ...arguments, event.code);
     this.connected = false;
 
