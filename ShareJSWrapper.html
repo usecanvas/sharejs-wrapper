@@ -1,0 +1,3250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ShareJSWrapper - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav class="nav">
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="ShareJSWrapper.html#event:disconnect">disconnect</a></li><li><a href="ShareJSWrapper.html#event:insert">insert</a></li><li><a href="ShareJSWrapper.html#event:remove">remove</a></li></ul><h3>Classes</h3><ul><li><a href="ShareJSWrapper.html">ShareJSWrapper</a><ul class='methods'><li data-type='method'><a href="ShareJSWrapper.html#connect">connect</a></li><li data-type='method'><a href="ShareJSWrapper.html#disconnect">disconnect</a></li><li data-type='method'><a href="ShareJSWrapper.html#insert">insert</a></li><li data-type='method'><a href="ShareJSWrapper.html#on">on</a></li><li data-type='method'><a href="ShareJSWrapper.html#once">once</a></li><li data-type='method'><a href="ShareJSWrapper.html#remove">remove</a></li><li data-type='method'><a href="ShareJSWrapper.html#removeAllListeners">removeAllListeners</a></li><li data-type='method'><a href="ShareJSWrapper.html#removeListener">removeListener</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">ShareJSWrapper</h1>
+    
+
+    <!--container.tmpl-->
+
+
+
+
+
+<section>
+
+
+
+<header data-tmpl="container.tmpl">
+    
+        <h2>
+        ShareJSWrapper
+        </h2>
+        
+            <div class="lead"><p>A wrapper around a
+  <a href="https://github.com/share/ShareJS/tree/v0.7.40">ShareJS</a> client, providing
+  easier use for a single document per connection</p></div>
+        
+    
+
+    
+      <div class="bs-callout bs-callout-default">
+        <h5>Members</h5>
+        <br />
+        <dl class="dl-horizontal methods-members">
+        <dt>Fields &amp; Properties</dt><dd><ul>
+            <li><a href="#content">content</a></li>
+            </ul></dd><dt>Methods</dt><dd><ul>
+            <li><a href="#connect">connect</a></li>
+            
+            <li><a href="#disconnect">disconnect</a></li>
+            
+            <li><a href="#insert">insert</a></li>
+            
+            <li><a href="#on">on</a></li>
+            
+            <li><a href="#once">once</a></li>
+            
+            <li><a href="#remove">remove</a></li>
+            
+            <li><a href="#removeAllListeners">removeAllListeners</a></li>
+            
+            <li><a href="#removeListener">removeListener</a></li>
+            </ul></dd></dl></div>
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        <!--method.tmpl-->
+<div class="method-details">
+
+
+
+
+
+    
+    <h3 class="constructor">Constructor</h3>
+    
+
+    
+      <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line30">30</a>
+  </code>
+</div>
+
+    
+
+    <h4 class="name" id="ShareJSWrapper">
+      <a href="#params-ShareJSWrapper"><span class="type-signature"></span>new ShareJSWrapper</a><span class="signature">(config)</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-ShareJSWrapper">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-ShareJSWrapper" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An object of configuration options for this client</p>
+                <h6>Properties</h6>
+                <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A Canvas API authentication token</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>canvasID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An ID of a Canvas to connect to</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realtimeURL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The URL of the realtime server</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>orgID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the org the canvas belongs to</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n * @class ShareJSWrapper\n * @classdesc A wrapper around a\n *   [ShareJS](https://github.com/share/ShareJS/tree/v0.7.40) client, providing\n *   easier use for a single document per connection\n *\n * @param {Object} config An object of configuration options for this client\n * @param {string} config.accessToken A Canvas API authentication token\n * @param {string} config.canvasID An ID of a Canvas to connect to\n * @param {string} config.realtimeURL The URL of the realtime server\n * @param {string} config.orgID The ID of the org the canvas belongs to\n */","meta":{"range":[607,1165],"filename":"index.js","lineno":30,"path":"/Users/clem/Code/sharejs-wrapper","code":{},"shortpath":"index.js"},"kind":"class","name":"ShareJSWrapper","classdesc":"<p>A wrapper around a\n  <a href=\"https://github.com/share/ShareJS/tree/v0.7.40\">ShareJS</a> client, providing\n  easier use for a single document per connection</p>","params":[{"type":{"names":["Object"]},"description":"<p>An object of configuration options for this client</p>","name":"config","subparams":[{"type":{"names":["string"]},"description":"<p>A Canvas API authentication token</p>","name":"accessToken"},{"type":{"names":["string"]},"description":"<p>An ID of a Canvas to connect to</p>","name":"canvasID"},{"type":{"names":["string"]},"description":"<p>The URL of the realtime server</p>","name":"realtimeURL"},{"type":{"names":["string"]},"description":"<p>The ID of the org the canvas belongs to</p>","name":"orgID"}]},null,null,null,null],"longname":"ShareJSWrapper","scope":"global","___id":"T000003R000002","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"ShareJSWrapper","signature":"<span class=\"signature\">(config)</span><span class=\"type-signature\"></span>","ancestors":[]}
+</pre>
+-->
+</div>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            <!--members.tmpl-->
+<div class="member-details">
+
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line90">90</a>
+  </code>
+</div>
+
+
+
+<h4 class="name" id="content">
+  <span class="type-signature"></span>content<span class="type-signature"> :string</span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>The current content of the ShareJS document</p>
+</div>
+
+
+<div>
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line64">64</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="connect">
+      <a href="#params-connect"><span class="type-signature"></span>connect</a><span class="signature">(callback)</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>Tell the wrapper client to connect to the configured ShareJS server.</p>
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>share.connect(function onConnected() {
+  console.log(share.content);
+});</code></pre>
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-connect">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-connect" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ShareJSWrapper.html#~connectCallback">ShareJSWrapper~connectCallback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A callback to call once
+  connected</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * Tell the wrapper client to connect to the configured ShareJS server.\n   *\n   * @example\n   * share.connect(function onConnected() {\n   *   console.log(share.content);\n   * });\n   *\n   * @param {ShareJSWrapper~connectCallback} callback A callback to call once\n   *   connected\n   */","meta":{"range":[1732,2563],"filename":"index.js","lineno":64,"path":"/Users/clem/Code/sharejs-wrapper","code":{"id":"astnode100000051","name":"ShareJSWrapper#connect","type":"MethodDefinition","paramnames":["callback"]},"vars":{"":null},"shortpath":"index.js"},"description":"<p>Tell the wrapper client to connect to the configured ShareJS server.</p>","examples":[{"caption":"","code":"share.connect(function onConnected() {\n  console.log(share.content);\n});"}],"params":[{"type":{"names":["ShareJSWrapper~connectCallback"]},"description":"<p>A callback to call once\n  connected</p>","name":"callback"}],"name":"connect","longname":"ShareJSWrapper#connect","kind":"function","memberof":"ShareJSWrapper","scope":"instance","___id":"T000002R000016","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"connect","signature":"<span class=\"signature\">(callback)</span><span class=\"type-signature\"></span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line104">104</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="disconnect">
+      <a href="#params-disconnect"><span class="type-signature"></span>disconnect</a><span class="signature">()</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>Tell the wrapper client to close the ShareJS connection and socket.</p>
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>share.disconnect();</code></pre>
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-disconnect">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * Tell the wrapper client to close the ShareJS connection and socket.\n   *\n   * @example\n   * share.disconnect();\n   */","meta":{"range":[2696,2739],"filename":"index.js","lineno":104,"path":"/Users/clem/Code/sharejs-wrapper","code":{"id":"astnode100000190","name":"ShareJSWrapper#disconnect","type":"MethodDefinition","paramnames":[]},"vars":{"":null},"shortpath":"index.js"},"description":"<p>Tell the wrapper client to close the ShareJS connection and socket.</p>","examples":[{"caption":"","code":"share.disconnect();"}],"name":"disconnect","longname":"ShareJSWrapper#disconnect","kind":"function","memberof":"ShareJSWrapper","scope":"instance","___id":"T000002R000027","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"disconnect","signature":"<span class=\"signature\">()</span><span class=\"type-signature\"></span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line117">117</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="insert">
+      <a href="#params-insert"><span class="type-signature"></span>insert</a><span class="signature">(offset, text)</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>Send an insert operation from this client to the server.</p>
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>share.insert(10, 'Foo');</code></pre>
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-insert">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-insert" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The offset at which to start the insert operation</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The text to be inserted</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * Send an insert operation from this client to the server.\n   *\n   * @example\n   * share.insert(10, 'Foo');\n   *\n   * @param {number} offset The offset at which to start the insert operation\n   * @param {string} text The text to be inserted\n   */","meta":{"range":[2999,3143],"filename":"index.js","lineno":117,"path":"/Users/clem/Code/sharejs-wrapper","code":{"id":"astnode100000201","name":"ShareJSWrapper#insert","type":"MethodDefinition","paramnames":["offset","text"]},"vars":{"":null},"shortpath":"index.js"},"description":"<p>Send an insert operation from this client to the server.</p>","examples":[{"caption":"","code":"share.insert(10, 'Foo');"}],"params":[{"type":{"names":["number"]},"description":"<p>The offset at which to start the insert operation</p>","name":"offset"},{"type":{"names":["string"]},"description":"<p>The text to be inserted</p>","name":"text"}],"name":"insert","longname":"ShareJSWrapper#insert","kind":"function","memberof":"ShareJSWrapper","scope":"instance","___id":"T000002R000028","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"insert","signature":"<span class=\"signature\">(offset, text)</span><span class=\"type-signature\"></span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line136">136</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="on">
+      <a href="#params-on"><span class="type-signature"></span>on</a><span class="signature">(event, fn, context)</span><span class="type-signature"> &rarr; {<a href="ShareJSWrapper.html">ShareJSWrapper</a>}</span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>Add a listener to an event.</p>
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>share.on('connect', function onConnect() {
+  // ...
+});</code></pre>
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-on">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-on" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the event</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The function to call when the event occurs</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The context on which to call the function</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="bs-callout bs-callout-success">
+    <h5>Returns </h5>
+
+        
+<div class="param-desc">
+    <p>This same instance</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ShareJSWrapper.html">ShareJSWrapper</a></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+  
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * Add a listener to an event.\n   *\n   * @example\n   * share.on('connect', function onConnect() {\n   *   // ...\n   * });\n   *\n   * @param {string} event The name of the event\n   * @param {function} fn The function to call when the event occurs\n   * @param {*} context The context on which to call the function\n   * @return {ShareJSWrapper} This same instance\n   */","meta":{"range":[3520,3611],"filename":"index.js","lineno":136,"path":"/Users/clem/Code/sharejs-wrapper","code":{"id":"astnode100000235","name":"ShareJSWrapper#on","type":"MethodDefinition","paramnames":["event","fn","context"]},"vars":{"":null},"shortpath":"index.js"},"description":"<p>Add a listener to an event.</p>","examples":[{"caption":"","code":"share.on('connect', function onConnect() {\n  // ...\n});"}],"params":[{"type":{"names":["string"]},"description":"<p>The name of the event</p>","name":"event"},{"type":{"names":["function"]},"description":"<p>The function to call when the event occurs</p>","name":"fn"},{"type":{"names":["*"]},"description":"<p>The context on which to call the function</p>","name":"context"}],"returns":[{"type":{"names":["ShareJSWrapper"]},"description":"<p>This same instance</p>"}],"name":"on","longname":"ShareJSWrapper#on","kind":"function","memberof":"ShareJSWrapper","scope":"instance","___id":"T000002R000030","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"on","signature":"<span class=\"signature\">(event, fn, context)</span><span class=\"type-signature\"> &rarr; {<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>}</span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line154">154</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="once">
+      <a href="#params-once"><span class="type-signature"></span>once</a><span class="signature">(event, fn, context)</span><span class="type-signature"> &rarr; {<a href="ShareJSWrapper.html">ShareJSWrapper</a>}</span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>Add a listener to an event which will fire once.</p>
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>share.once('connect', function onConnect() {
+  // ...
+});</code></pre>
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-once">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-once" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the event</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The function to call when the event occurs</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The context on which to call the function</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="bs-callout bs-callout-success">
+    <h5>Returns </h5>
+
+        
+<div class="param-desc">
+    <p>This same instance</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ShareJSWrapper.html">ShareJSWrapper</a></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+  
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * Add a listener to an event which will fire once.\n   *\n   * @example\n   * share.once('connect', function onConnect() {\n   *   // ...\n   * });\n   *\n   * @param {string} event The name of the event\n   * @param {function} fn The function to call when the event occurs\n   * @param {*} context The context on which to call the function\n   * @return {ShareJSWrapper} This same instance\n   */","meta":{"range":[4011,4106],"filename":"index.js","lineno":154,"path":"/Users/clem/Code/sharejs-wrapper","code":{"id":"astnode100000254","name":"ShareJSWrapper#once","type":"MethodDefinition","paramnames":["event","fn","context"]},"vars":{"":null},"shortpath":"index.js"},"description":"<p>Add a listener to an event which will fire once.</p>","examples":[{"caption":"","code":"share.once('connect', function onConnect() {\n  // ...\n});"}],"params":[{"type":{"names":["string"]},"description":"<p>The name of the event</p>","name":"event"},{"type":{"names":["function"]},"description":"<p>The function to call when the event occurs</p>","name":"fn"},{"type":{"names":["*"]},"description":"<p>The context on which to call the function</p>","name":"context"}],"returns":[{"type":{"names":["ShareJSWrapper"]},"description":"<p>This same instance</p>"}],"name":"once","longname":"ShareJSWrapper#once","kind":"function","memberof":"ShareJSWrapper","scope":"instance","___id":"T000002R000031","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"once","signature":"<span class=\"signature\">(event, fn, context)</span><span class=\"type-signature\"> &rarr; {<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>}</span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line168">168</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="remove">
+      <a href="#params-remove"><span class="type-signature"></span>remove</a><span class="signature">(start, length)</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>Send a remove operation from this client to the server.</p>
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>share.remove(0, 3);</code></pre>
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-remove">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-remove" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The position at which to start the remove</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The number of characters to remove</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * Send a remove operation from this client to the server.\n   *\n   * @example\n   * share.remove(0, 3);\n   *\n   * @param {number} start The position at which to start the remove\n   * @param {number} length The number of characters to remove\n   */","meta":{"range":[4364,4510],"filename":"index.js","lineno":168,"path":"/Users/clem/Code/sharejs-wrapper","code":{"id":"astnode100000273","name":"ShareJSWrapper#remove","type":"MethodDefinition","paramnames":["start","length"]},"vars":{"":null},"shortpath":"index.js"},"description":"<p>Send a remove operation from this client to the server.</p>","examples":[{"caption":"","code":"share.remove(0, 3);"}],"params":[{"type":{"names":["number"]},"description":"<p>The position at which to start the remove</p>","name":"start"},{"type":{"names":["number"]},"description":"<p>The number of characters to remove</p>","name":"length"}],"name":"remove","longname":"ShareJSWrapper#remove","kind":"function","memberof":"ShareJSWrapper","scope":"instance","___id":"T000002R000032","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"remove","signature":"<span class=\"signature\">(start, length)</span><span class=\"type-signature\"></span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line183">183</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="removeAllListeners">
+      <a href="#params-removeAllListeners"><span class="type-signature"></span>removeAllListeners</a><span class="signature">(event<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="ShareJSWrapper.html">ShareJSWrapper</a>}</span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>Remove all listeners or only for the specified event.</p>
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>share.removeAllListeners();</code></pre>
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-removeAllListeners">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-removeAllListeners" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The event to remove all listeners for</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="bs-callout bs-callout-success">
+    <h5>Returns </h5>
+
+        
+<div class="param-desc">
+    <p>This same instance</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ShareJSWrapper.html">ShareJSWrapper</a></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+  
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * Remove all listeners or only for the specified event.\n   *\n   * @example\n   * share.removeAllListeners();\n   *\n   * @param {string} [event] The event to remove all listeners for\n   * @return {ShareJSWrapper} This same instance\n   */","meta":{"range":[4758,4855],"filename":"index.js","lineno":183,"path":"/Users/clem/Code/sharejs-wrapper","code":{"id":"astnode100000307","name":"ShareJSWrapper#removeAllListeners","type":"MethodDefinition","paramnames":["event"]},"vars":{"":null},"shortpath":"index.js"},"description":"<p>Remove all listeners or only for the specified event.</p>","examples":[{"caption":"","code":"share.removeAllListeners();"}],"params":[{"type":{"names":["string"]},"optional":true,"description":"<p>The event to remove all listeners for</p>","name":"event"}],"returns":[{"type":{"names":["ShareJSWrapper"]},"description":"<p>This same instance</p>"}],"name":"removeAllListeners","longname":"ShareJSWrapper#removeAllListeners","kind":"function","memberof":"ShareJSWrapper","scope":"instance","___id":"T000002R000034","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"removeAllListeners","signature":"<span class=\"signature\">(event<span class=\"signature-attributes\">opt</span>)</span><span class=\"type-signature\"> &rarr; {<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>}</span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line200">200</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="removeListener">
+      <a href="#params-removeListener"><span class="type-signature"></span>removeListener</a><span class="signature">(event, fn<span class="signature-attributes">opt</span>, context<span class="signature-attributes">opt</span>, once)</span><span class="type-signature"> &rarr; {<a href="ShareJSWrapper.html">ShareJSWrapper</a>}</span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>Remove a listener from an event.</p>
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>share.removeListener('connect', connectHandler, this, true);</code></pre>
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-removeListener">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-removeListener" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The event to remove listener(s) from</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The listener to remove</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Only match listeners matching this context</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>once</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Only remove &quot;once&quot; listeners</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="bs-callout bs-callout-success">
+    <h5>Returns </h5>
+
+        
+<div class="param-desc">
+    <p>This same instance</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ShareJSWrapper.html">ShareJSWrapper</a></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+  
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * Remove a listener from an event.\n   *\n   * @example\n   * share.removeListener('connect', connectHandler, this, true);\n   *\n   * @param {string} event The event to remove listener(s) from\n   * @param {function} [fn] The listener to remove\n   * @param {*} [context] Only match listeners matching this context\n   * @param {boolean} once Only remove \"once\" listeners\n   * @return {ShareJSWrapper} This same instance\n   */","meta":{"range":[5288,5415],"filename":"index.js","lineno":200,"path":"/Users/clem/Code/sharejs-wrapper","code":{"id":"astnode100000322","name":"ShareJSWrapper#removeListener","type":"MethodDefinition","paramnames":["event","fn","context","once"]},"vars":{"":null},"shortpath":"index.js"},"description":"<p>Remove a listener from an event.</p>","examples":[{"caption":"","code":"share.removeListener('connect', connectHandler, this, true);"}],"params":[{"type":{"names":["string"]},"description":"<p>The event to remove listener(s) from</p>","name":"event"},{"type":{"names":["function"]},"optional":true,"description":"<p>The listener to remove</p>","name":"fn"},{"type":{"names":["*"]},"optional":true,"description":"<p>Only match listeners matching this context</p>","name":"context"},{"type":{"names":["boolean"]},"description":"<p>Only remove &quot;once&quot; listeners</p>","name":"once"}],"returns":[{"type":{"names":["ShareJSWrapper"]},"description":"<p>This same instance</p>"}],"name":"removeListener","longname":"ShareJSWrapper#removeListener","kind":"function","memberof":"ShareJSWrapper","scope":"instance","___id":"T000002R000035","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"removeListener","signature":"<span class=\"signature\">(event, fn<span class=\"signature-attributes\">opt</span>, context<span class=\"signature-attributes\">opt</span>, once)</span><span class=\"type-signature\"> &rarr; {<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>}</span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line48">48</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="~connectCallback">
+      <a href="#params-connectCallback"><span class="type-signature"></span>connectCallback</a><span class="signature">()</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>A callback called on successful connection after a <code>connect</code> call</p>
+</div>
+
+
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-connectCallback">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line48">48</a>
+  </code>
+</div>
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n   * A callback called on successful connection after a `connect` call\n   *\n   * @callback ShareJSWrapper~connectCallback\n   */","meta":{"range":[1305,1436],"filename":"index.js","lineno":48,"path":"/Users/clem/Code/sharejs-wrapper","code":{},"shortpath":"index.js"},"description":"<p>A callback called on successful connection after a <code>connect</code> call</p>","kind":"typedef","name":"connectCallback","type":{"names":["function"]},"memberof":"ShareJSWrapper","longname":"ShareJSWrapper~connectCallback","scope":"inner","___id":"T000002R000015","___s":true,"attribs":"<span class=\"type-signature\"></span>","id":"~connectCallback","signature":"<span class=\"signature\">()</span><span class=\"type-signature\"></span>","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>~"]}
+</pre>
+-->
+</div>
+
+            
+                <!--members.tmpl-->
+<div class="member-details">
+
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line10">10</a>
+  </code>
+</div>
+
+
+
+<h4 class="name" id="~Insert">
+  Insert
+</h4>
+
+
+
+
+<div class="description">
+    <p>A two-element array consisting of a length of text to retain and a string to
+insert</p>
+</div>
+
+
+<div>
+
+<!-- details.tmpl -->
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line10">10</a>
+  </code>
+</div>
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>[10, "Foo"]</code></pre>
+
+
+
+</div>
+
+</div>
+
+            
+                <!--members.tmpl-->
+<div class="member-details">
+
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line20">20</a>
+  </code>
+</div>
+
+
+
+<h4 class="name" id="~Remove">
+  Remove
+</h4>
+
+
+
+
+<div class="description">
+    <p>A two-element array consisting of a length of text to retain and a length of
+text to remove</p>
+</div>
+
+
+<div>
+
+<!-- details.tmpl -->
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line20">20</a>
+  </code>
+</div>
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>[10, 12]</code></pre>
+
+
+
+</div>
+
+</div>
+
+            
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line297">297</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="event:disconnect">
+      <a href="#params-disconnect">disconnect</a>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>An event emitted when the client has fatally disconnected and will no
+longer attempt reconnects.</p>
+<p>Check <code>err.message</code> for &quot;abnormal&quot;, &quot;no_pong&quot;, &quot;forbidden&quot;,
+&quot;not_found&quot;, or &quot;unexpected&quot;.</p>
+</div>
+
+
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-disconnect">
+
+  
+      <h5>Type:</h5>
+      <ul>
+          <li>
+              
+<span class="param-type">Error</span>
+
+
+          </li>
+      </ul>
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line297">297</a>
+  </code>
+</div>
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n       * An event emitted when the client has fatally disconnected and will no\n       * longer attempt reconnects.\n       *\n       * Check `err.message` for \"abnormal\", \"no_pong\", \"forbidden\",\n       * \"not_found\", or \"unexpected\".\n       *\n       * @event ShareJSWrapper#disconnect\n       * @type {Error}\n       */","meta":{"range":[7572,7891],"filename":"index.js","lineno":297,"path":"/Users/clem/Code/sharejs-wrapper","code":{},"shortpath":"index.js"},"description":"<p>An event emitted when the client has fatally disconnected and will no\nlonger attempt reconnects.</p>\n<p>Check <code>err.message</code> for &quot;abnormal&quot;, &quot;no_pong&quot;, &quot;forbidden&quot;,\n&quot;not_found&quot;, or &quot;unexpected&quot;.</p>","kind":"event","name":"disconnect","type":{"names":["Error"]},"memberof":"ShareJSWrapper","longname":"ShareJSWrapper#event:disconnect","scope":"instance","___id":"T000002R000053","___s":true,"attribs":"","id":"event:disconnect","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line330">330</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="event:insert">
+      <a href="#params-insert">insert</a>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>An event emitted when the client receives an insert operation. Emits an
+event with an exploded <a href="ShareJSWrapper.html#~Insert">Insert</a> operation.</p>
+</div>
+
+
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-insert">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line330">330</a>
+  </code>
+</div>
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-insert" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>retain</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The length being retained in the insert</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The value being inserted</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n     * An event emitted when the client receives an insert operation. Emits an\n     * event with an exploded <a href="ShareJSWrapper.html#~Insert">Insert</a> operation.\n     *\n     * @event ShareJSWrapper#insert\n     * @param {number} retain The length being retained in the insert\n     * @param {string} value The value being inserted\n     */","meta":{"range":[8498,8833],"filename":"index.js","lineno":330,"path":"/Users/clem/Code/sharejs-wrapper","code":{},"shortpath":"index.js"},"description":"<p>An event emitted when the client receives an insert operation. Emits an\nevent with an exploded <a href="ShareJSWrapper.html#~Insert">Insert</a> operation.</p>","kind":"event","name":"insert","params":[{"type":{"names":["number"]},"description":"<p>The length being retained in the insert</p>","name":"retain"},{"type":{"names":["string"]},"description":"<p>The value being inserted</p>","name":"value"}],"memberof":"ShareJSWrapper","longname":"ShareJSWrapper#event:insert","scope":"instance","___id":"T000002R000058","___s":true,"attribs":"","id":"event:insert","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line338">338</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id="event:remove">
+      <a href="#params-remove">remove</a>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>An event emitted when the client receives a remove operation. Emits an
+exploded <a href="ShareJSWrapper.html#~Remove">Remove</a> operation.</p>
+</div>
+
+
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-remove">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="index.js.html">index.js</a>:<a href="index.js.html#line338">338</a>
+  </code>
+</div>
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-remove" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>retain</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The length being retained in the insert</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The length being removed</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/**\n     * An event emitted when the client receives a remove operation. Emits an\n     * exploded <a href="ShareJSWrapper.html#~Remove">Remove</a> operation.\n     *\n     * @event ShareJSWrapper#remove\n     * @param {number} retain The length being retained in the insert\n     * @param {number} value The length being removed\n     */","meta":{"range":[8838,9158],"filename":"index.js","lineno":338,"path":"/Users/clem/Code/sharejs-wrapper","code":{},"shortpath":"index.js"},"description":"<p>An event emitted when the client receives a remove operation. Emits an\nexploded <a href="ShareJSWrapper.html#~Remove">Remove</a> operation.</p>","kind":"event","name":"remove","params":[{"type":{"names":["number"]},"description":"<p>The length being retained in the insert</p>","name":"retain"},{"type":{"names":["number"]},"description":"<p>The length being removed</p>","name":"value"}],"memberof":"ShareJSWrapper","longname":"ShareJSWrapper#event:remove","scope":"instance","___id":"T000002R000059","___s":true,"attribs":"","id":"event:remove","ancestors":["<a href=\"ShareJSWrapper.html\">ShareJSWrapper</a>#"]}
+</pre>
+-->
+</div>
+
+        
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> using the LOKE theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
