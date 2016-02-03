@@ -40,8 +40,8 @@
     shareJSB.on('remove', function() { areaB.value = shareJSB.content });
   });
 
-  shareJSA.on('disconnected', function onDisconnected(err) {
-    console.log('disconnected', err.message, err);
+  shareJSA.on('disconnect', function onDisconnected(err) {
+    console.log('disconnect', err.message, err);
     areaA.setAttribute('disabled', true);
     disconnect.setAttribute('disabled', true);
     reconnect.removeAttribute('disabled');

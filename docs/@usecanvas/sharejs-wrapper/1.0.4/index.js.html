@@ -29,7 +29,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav class="nav">
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="ShareJSWrapper.html#event:disconnected">disconnected</a></li><li><a href="ShareJSWrapper.html#event:insert">insert</a></li><li><a href="ShareJSWrapper.html#event:remove">remove</a></li></ul><h3>Classes</h3><ul><li><a href="ShareJSWrapper.html">ShareJSWrapper</a><ul class='methods'><li data-type='method'><a href="ShareJSWrapper.html#connect">connect</a></li><li data-type='method'><a href="ShareJSWrapper.html#disconnect">disconnect</a></li><li data-type='method'><a href="ShareJSWrapper.html#insert">insert</a></li><li data-type='method'><a href="ShareJSWrapper.html#on">on</a></li><li data-type='method'><a href="ShareJSWrapper.html#once">once</a></li><li data-type='method'><a href="ShareJSWrapper.html#remove">remove</a></li><li data-type='method'><a href="ShareJSWrapper.html#removeAllListeners">removeAllListeners</a></li><li data-type='method'><a href="ShareJSWrapper.html#removeListener">removeListener</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="ShareJSWrapper.html#event:disconnect">disconnect</a></li><li><a href="ShareJSWrapper.html#event:insert">insert</a></li><li><a href="ShareJSWrapper.html#event:remove">remove</a></li></ul><h3>Classes</h3><ul><li><a href="ShareJSWrapper.html">ShareJSWrapper</a><ul class='methods'><li data-type='method'><a href="ShareJSWrapper.html#connect">connect</a></li><li data-type='method'><a href="ShareJSWrapper.html#disconnect">disconnect</a></li><li data-type='method'><a href="ShareJSWrapper.html#insert">insert</a></li><li data-type='method'><a href="ShareJSWrapper.html#on">on</a></li><li data-type='method'><a href="ShareJSWrapper.html#once">once</a></li><li data-type='method'><a href="ShareJSWrapper.html#remove">remove</a></li><li data-type='method'><a href="ShareJSWrapper.html#removeAllListeners">removeAllListeners</a></li><li data-type='method'><a href="ShareJSWrapper.html#removeListener">removeListener</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -308,7 +308,7 @@ export default class ShareJSWrapper {
    *
    * @private
    * @param {Event} event A disconnection event
-   * @emits ShareJSWrapper#disconnected
+   * @emits ShareJSWrapper#disconnect
    */
   onConnectionDisonnected(event) {
     this.debug('connectionDisconnected', ...arguments, event.code);
@@ -349,10 +349,10 @@ export default class ShareJSWrapper {
        * Check `err.message` for "abnormal", "no_pong", "forbidden",
        * "not_found", or "unexpected".
        *
-       * @event ShareJSWrapper#disconnected
+       * @event ShareJSWrapper#disconnect
        * @type {Error}
        */
-      this.eventEmitter.emit('disconnected', error);
+      this.eventEmitter.emit('disconnect', error);
     }
   }
 

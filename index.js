@@ -260,7 +260,7 @@ export default class ShareJSWrapper {
    *
    * @private
    * @param {Event} event A disconnection event
-   * @emits ShareJSWrapper#disconnected
+   * @emits ShareJSWrapper#disconnect
    */
   onConnectionDisonnected(event) {
     this.debug('connectionDisconnected', ...arguments, event.code);
@@ -301,10 +301,10 @@ export default class ShareJSWrapper {
        * Check `err.message` for "abnormal", "no_pong", "forbidden",
        * "not_found", or "unexpected".
        *
-       * @event ShareJSWrapper#disconnected
+       * @event ShareJSWrapper#disconnect
        * @type {Error}
        */
-      this.eventEmitter.emit('disconnected', error);
+      this.eventEmitter.emit('disconnect', error);
     }
   }
 
