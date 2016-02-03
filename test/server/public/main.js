@@ -36,8 +36,8 @@
     });
 
     // Set the value of the listening text box on remote operations
-    shareJSB.on('insert', _ => areaB.value = shareJSB.content);
-    shareJSB.on('remove', _ => areaB.value = shareJSB.content);
+    shareJSB.on('insert', function() { areaB.value = shareJSB.content });
+    shareJSB.on('remove', function() { areaB.value = shareJSB.content });
   });
 
   shareJSA.on('disconnected', function onDisconnected(err) {
@@ -81,12 +81,12 @@
       return;
     }
 
-    let commonStart = 0;
+    var commonStart = 0;
     while (oldText.charAt(commonStart) === newText.charAt(commonStart)) {
       commonStart++;
     }
 
-    let commonEnd = 0;
+    var commonEnd = 0;
     while (oldText.charAt(oldText.length - 1 - commonEnd) === newText.charAt(newText.length - 1 - commonEnd) &&
           commonEnd + commonStart < oldText.length && commonEnd + commonStart < newText.length) {
       commonEnd++;
