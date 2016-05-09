@@ -44,6 +44,9 @@
     }({
         1: [ function(require, module, exports) {
             "use strict";
+            Object.defineProperty(exports, "__esModule", {
+                value: true
+            });
             var _createClass = function() {
                 function defineProperties(target, props) {
                     for (var i = 0; i < props.length; i++) {
@@ -60,9 +63,6 @@
                     return Constructor;
                 };
             }();
-            Object.defineProperty(exports, "__esModule", {
-                value: true
-            });
             var _eventemitter = require("eventemitter3");
             var _eventemitter2 = _interopRequireDefault(_eventemitter);
             var _client = require("share/lib/client");
@@ -71,6 +71,16 @@
                 return obj && obj.__esModule ? obj : {
                     "default": obj
                 };
+            }
+            function _toConsumableArray(arr) {
+                if (Array.isArray(arr)) {
+                    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+                        arr2[i] = arr[i];
+                    }
+                    return arr2;
+                } else {
+                    return Array.from(arr);
+                }
             }
             function _classCallCheck(instance, Constructor) {
                 if (!(instance instanceof Constructor)) {
@@ -123,7 +133,13 @@
                 }, {
                     key: "insert",
                     value: function insert(offset, text) {
-                        this.debug.apply(this, [ "insert" ].concat(Array.prototype.slice.call(arguments)));
+                        var _this2 = this;
+                        this.debug(function(_) {
+                            return [ "insert", {
+                                content: _this2.context.get(),
+                                op: [ offset, text ]
+                            } ];
+                        });
                         this.context.insert(offset, text);
                         this.content = this.context.get();
                     }
@@ -142,7 +158,13 @@
                 }, {
                     key: "remove",
                     value: function remove(start, length) {
-                        this.debug.apply(this, [ "remove" ].concat(Array.prototype.slice.call(arguments)));
+                        var _this3 = this;
+                        this.debug(function(_) {
+                            return [ "remove", {
+                                content: _this3.context.get(),
+                                op: [ start, length ]
+                            } ];
+                        });
                         this.context.remove(start, length);
                         this.content = this.context.get();
                     }
@@ -238,22 +260,22 @@
                 }, {
                     key: "onSocketPong",
                     value: function onSocketPong() {
-                        var _this2 = this;
+                        var _this4 = this;
                         this.receivedPong = true;
                         setTimeout(function(_) {
-                            _this2.sendPing();
+                            _this4.sendPing();
                         }, 5e3);
                     }
                 }, {
                     key: "reconnect",
                     value: function reconnect() {
-                        var _this3 = this;
+                        var _this5 = this;
                         this.reconnectAttempts = this.reconnectAttempts || 0;
                         var attempts = this.reconnectAttempts;
                         var time = getInterval();
                         setTimeout(function(_) {
-                            _this3.reconnectAttempts = _this3.reconnectAttempts + 1;
-                            _this3.connect();
+                            _this5.reconnectAttempts = _this5.reconnectAttempts + 1;
+                            _this5.connect();
                         }, time);
                         function getInterval() {
                             var max = (Math.pow(2, attempts) - 1) * 1e3;
@@ -266,7 +288,7 @@
                 }, {
                     key: "sendPing",
                     value: function sendPing() {
-                        var _this4 = this;
+                        var _this6 = this;
                         if (this.config.noPing) {
                             return;
                         }
@@ -275,8 +297,8 @@
                             this.receivedPong = false;
                             socket.send("ping");
                             this.pongWait = setTimeout(function(_) {
-                                if (!_this4.receivedPong) {
-                                    _this4.socket.close(LOCAL_TIMEOUT);
+                                if (!_this6.receivedPong) {
+                                    _this6.socket.close(LOCAL_TIMEOUT);
                                 }
                             }, 1e3);
                         }
@@ -284,12 +306,12 @@
                 }, {
                     key: "setupSocketAuthentication",
                     value: function setupSocketAuthentication() {
-                        var _this5 = this, _arguments = arguments;
+                        var _this7 = this, _arguments = arguments;
                         var accessToken = this.config.accessToken;
                         var socket = this.socket;
                         var _onopen = bind(socket, "onopen");
                         socket.onopen = function(_) {
-                            _this5.debug("sending auth token");
+                            _this7.debug("sending auth token");
                             socket.send("auth-token:" + accessToken);
                             _onopen.apply(undefined, _arguments);
                         };
@@ -303,7 +325,7 @@
                             var data = _ref.data;
                             if (data === "pong") {
                                 this.onSocketPong();
-                                return;
+                                return null;
                             }
                             return _onmessage.apply(undefined, arguments);
                         }.bind(this);
@@ -322,8 +344,13 @@
                     key: "debug",
                     value: function debug() {
                         if (this.config.debug) {
-                            var _console;
-                            (_console = console).log.apply(_console, arguments);
+                            if (arguments.length === 1 && typeof arguments[0] === "function") {
+                                var _console;
+                                (_console = console).log.apply(_console, _toConsumableArray(arguments[0]()));
+                            } else {
+                                var _console2;
+                                (_console2 = console).log.apply(_console2, arguments);
+                            }
                         }
                     }
                 } ]);

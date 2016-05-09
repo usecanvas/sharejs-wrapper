@@ -1,7 +1,7 @@
 {
   "name": "@usecanvas/sharejs-wrapper",
   "description": "A wrapper around ShareJS for easier iOS development",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Jonathan Clem <jotclem@gmail.com>",
   "bugs": {
     "url": "https://github.com/usecanvas/sharejs-wrapper/issues"

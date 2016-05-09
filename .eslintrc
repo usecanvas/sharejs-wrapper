@@ -4,6 +4,8 @@
     "browser": true
   },
   "rules": {
-    "no-unused-vars": [2, {"argsIgnorePattern": "^_"}]
+    "no-unused-vars": [2, {"argsIgnorePattern": "^_"}],
+    "prefer-rest-params": 0,
+    "no-console": 0
   }
 }

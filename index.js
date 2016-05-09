@@ -38,9 +38,10 @@ const LOCAL_TIMEOUT = 4011;
  * @param {string} config.canvasID An ID of a Canvas to connect to
  * @param {string} config.realtimeURL The URL of the realtime server
  * @param {string} config.orgID The ID of the org the canvas belongs to
+ * @param {string} config.debug Whether to ignore or log internal log calls
  */
 export default class ShareJSWrapper {
-  constructor(config) {
+  constructor(config) { // eslint-disable-line require-jsdoc
     this.config = config;
     this.eventEmitter = new EventEmitter();
   }
@@ -115,7 +116,13 @@ export default class ShareJSWrapper {
    * @param {string} text The text to be inserted
    */
   insert(offset, text) {
-    this.debug('insert', ...arguments);
+    this.debug(_ => {
+      return ['insert', {
+        content: this.context.get(),
+        op: [offset, text]
+      }];
+    });
+
     this.context.insert(offset, text);
     this.content = this.context.get();
   }
@@ -166,7 +173,13 @@ export default class ShareJSWrapper {
    * @param {number} length The number of characters to remove
    */
   remove(start, length) {
-    this.debug('remove', ...arguments);
+    this.debug(_ => {
+      return ['remove', {
+        content: this.context.get(),
+        op: [start, length]
+      }];
+    });
+
     this.context.remove(start, length);
     this.content = this.context.get();
   }
@@ -216,7 +229,7 @@ export default class ShareJSWrapper {
    * Get an editing context for the ShareJS document.
    *
    * @private
-   * @return {ShareJS.Context}
+   * @return {ShareJS.Context} A ShareJS editing context
    */
   getDocumentContext() {
     const context = this.document.createContext();
@@ -234,7 +247,7 @@ export default class ShareJSWrapper {
    * Get a new ShareJS connection for this wrapper client.
    *
    * @private
-   * @return {ShareJS.Connection}
+   * @return {ShareJS.Connection} A ShareJS connection object
    */
   getShareJSConnection() {
     const connection = new ShareJS.Connection(this.socket);
@@ -375,7 +388,7 @@ export default class ShareJSWrapper {
       this.connect();
     }, time);
 
-    function getInterval() {
+    function getInterval() { // eslint-disable-line require-jsdoc
       let max = (Math.pow(2, attempts) - 1) * 1000;
 
       if (max > 5 * 1000) {
@@ -446,7 +459,7 @@ export default class ShareJSWrapper {
     socket.onmessage = function onMessage({ data }) {
       if (data === 'pong') {
         this.onSocketPong();
-        return;
+        return null;
       }
 
       return _onmessage(...arguments);
@@ -475,11 +488,21 @@ export default class ShareJSWrapper {
    */
   debug() {
     if (this.config.debug) {
-      console.log(...arguments);
+      if (arguments.length === 1 && typeof arguments[0] === 'function') {
+        console.log(...arguments[0]());
+      } else {
+        console.log(...arguments);
+      }
     }
   }
 }
 
+/**
+ * @private
+ * @param {*} target The target of the method call
+ * @param {string} method The name of the method to call
+ * @return {*} The return value of the method call
+ */
 function bind(target, method) {
   return target[method].bind(target);
 }
