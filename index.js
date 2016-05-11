@@ -61,12 +61,20 @@ export default class ShareJSWrapper {
    *
    * @param {ShareJSWrapper~connectCallback} callback A callback to call once
    *   connected
+   * @param {Boolean} isReconnect Whether this connect call is a reconnect,
+   *   meaning ShareJS event handlers need not be re-bound and the context
+   *   already exists
    */
-  connect(callback) {
+  connect(callback, isReconnect) {
     const { canvasID, orgID, realtimeURL } = this.config;
 
     this.socket = new WebSocket(realtimeURL);
     this.connection = this.getShareJSConnection();
+
+    if (isReconnect) {
+      return;
+    }
+
     this.bindConnectionEvents();
 
     this.document = this.connection.get(orgID, canvasID);
@@ -250,10 +258,18 @@ export default class ShareJSWrapper {
    * @return {ShareJS.Connection} A ShareJS connection object
    */
   getShareJSConnection() {
-    const connection = new ShareJS.Connection(this.socket);
+    let connection = this.connection;
+
+    if (connection) {
+      connection.bindToSocket(this.socket);
+    } else {
+      connection = new ShareJS.Connection(this.socket);
+    }
+
     this.setupSocketAuthentication();
     this.setupSocketPing();
     this.setupSocketOnMessage();
+
     return connection;
   }
 
@@ -385,7 +401,7 @@ export default class ShareJSWrapper {
 
     setTimeout(_ => {
       this.reconnectAttempts = this.reconnectAttempts + 1;
-      this.connect();
+      this.connect(null, true);
     }, time);
 
     function getInterval() { // eslint-disable-line require-jsdoc

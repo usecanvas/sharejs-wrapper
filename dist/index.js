@@ -100,7 +100,7 @@
                 }
                 _createClass(ShareJSWrapper, [ {
                     key: "connect",
-                    value: function connect(callback) {
+                    value: function connect(callback, isReconnect) {
                         var _this = this;
                         var _config = this.config;
                         var canvasID = _config.canvasID;
@@ -108,6 +108,9 @@
                         var realtimeURL = _config.realtimeURL;
                         this.socket = new WebSocket(realtimeURL);
                         this.connection = this.getShareJSConnection();
+                        if (isReconnect) {
+                            return;
+                        }
                         this.bindConnectionEvents();
                         this.document = this.connection.get(orgID, canvasID);
                         this.document.subscribe();
@@ -199,7 +202,12 @@
                 }, {
                     key: "getShareJSConnection",
                     value: function getShareJSConnection() {
-                        var connection = new _client2.default.Connection(this.socket);
+                        var connection = this.connection;
+                        if (connection) {
+                            connection.bindToSocket(this.socket);
+                        } else {
+                            connection = new _client2.default.Connection(this.socket);
+                        }
                         this.setupSocketAuthentication();
                         this.setupSocketPing();
                         this.setupSocketOnMessage();
@@ -218,7 +226,7 @@
                         this.debug.apply(this, [ "connectionDisconnected" ].concat(Array.prototype.slice.call(arguments), [ event.code ]));
                         this.connected = false;
                         clearTimeout(this.pongWait);
-                        var error = undefined;
+                        var error = void 0;
                         switch (event.code) {
                           case ABNORMAL:
                           case LOCAL_TIMEOUT:
@@ -275,7 +283,7 @@
                         var time = getInterval();
                         setTimeout(function(_) {
                             _this5.reconnectAttempts = _this5.reconnectAttempts + 1;
-                            _this5.connect();
+                            _this5.connect(null, true);
                         }, time);
                         function getInterval() {
                             var max = (Math.pow(2, attempts) - 1) * 1e3;
