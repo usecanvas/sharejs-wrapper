@@ -1,7 +1,7 @@
 {
   "name": "@usecanvas/sharejs-wrapper",
   "description": "A wrapper around ShareJS for easier iOS development",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Jonathan Clem <jotclem@gmail.com>",
   "bugs": {
     "url": "https://github.com/usecanvas/sharejs-wrapper/issues"
@@ -23,8 +23,7 @@
     "dev": "nf start -j Procfile.dev"
   },
   "dependencies": {
-    "eventemitter3": "1.1.1",
-    "share": "0.7.40"
+    "eventemitter3": "1.1.1"
   },
   "devDependencies": {
     "babel-cli": "6.4.0",
@@ -43,6 +42,7 @@
     "nodemon": "1.8.1",
     "optimist": "0.6.1",
     "serve-static": "1.10.0",
+    "share": "^0.7.40",
     "uglify-js": "^2.6.1",
     "ws": "1.0.1"
   }
